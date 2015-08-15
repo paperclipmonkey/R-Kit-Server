@@ -1,0 +1,57 @@
+{
+  "name": "R-Kit-Server",
+  "preferGlobal": "false",
+  "version": "0.1.0",
+  "author": "Michael Waterworth <mike@3equals.co.uk>",
+  "description": "Research Kit Server",
+  "contributors": [
+    {
+      "name": "Michael Waterworth",
+      "email": "mike@3equals.co.uk"
+    }
+  ],
+  "main": "./server.js",
+  "dependencies": {
+    "archiver": "0.14.x",
+    "async": "1.4.x",
+    "s3": "4.4.x",
+    "body-parser": "1.13.x",
+    "config": "1.15.x",
+    "connect-multiparty": "2.0.x",
+    "cookie-parser": "1.3.x",
+    "cookie-session": "1.2.x",
+    "crypto": ">=0.0.3",
+    "date-utils": "1.2.x",
+    "datejs": "1.0.0-rc3",
+    "email-templates": "2.0.x",
+    "errorhandler": "1.4.x",
+    "escape-html": "1.0.x",
+    "express": "4.13.x",
+    "hbs": "*",
+    "json2csv": "2.9.x",
+    "method-override": "2.3.x",
+    "mocha": "2.2.x",
+    "mongoose": "4.1.x",
+    "node-uuid": "1.4.x",
+    "passport": "0.2.x",
+    "passport-local": "1.0.x",
+    "request": "2.60.x",
+    "should": "7.x",
+    "supertest": "*",
+    "vows": "0.8.x"
+  },
+  "analyze": false,
+  "devDependencies": {
+  },
+  "bundledDependencies": [
+    "union",
+    "ecstatic"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "scripts": {
+    "test": "make test"
+  }
+}
