@@ -106,7 +106,6 @@ module.exports = (function () {
         failureFlash: true
       }),
     function (req, res) {
-      app.emit('user.login')
       res.redirect('/admin/') // Authentication successful. Redirect home.
     }
   )

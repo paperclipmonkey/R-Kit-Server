@@ -29,20 +29,8 @@ function randomUUID () {
 function saveUploadedFile (req, res, next) {
   var filename = randomUUID() + '.jpg'
   var localUrl = __dirname + '/../tmp/' + filename
-
-  if (req.body && req.body.photo) {
-    var base64Data = req.body.photo
-    var dataBuffer = new Buffer(base64Data, 'base64')
-    require('fs').writeFile(localUrl, dataBuffer, function (err) {
-      if (err) {
-        console.error('Error writing B64 to file')
-        return next(err)
-      }
-      req.uploadedFileName = filename
-      common.saveToS3(localUrl, filename)
-      return next()
-    })
-  } else if (req.files && req.files.image && req.files.image.name) {
+  
+  if (req.files && req.files.image && req.files.image.name) {
     if (
       req.files.image.name.split('.')[req.files.image.name.split('.').length - 1] === 'jpg' ||
       req.files.image.name.split('.')[req.files.image.name.split('.').length - 1] === 'jpeg'
@@ -74,14 +62,14 @@ var check_nonce = function (req, res, next) {
   // Ensure we have a new view - check NONCE from App
   if (req.body.nonce) {
     // Do lookup in DB for nonce. Does it exist already?
-    mongoose.model('response').find({nonce: req.body.nonce}, function (err, views) {
+    mongoose.model('response').find({nonce: req.body.nonce}, function (err, responses) {
       if (err) {
         return res.json(500, err)
       }
-      if (views.length < 1) {
+      if (responses.length < 1) {
         return next()
       } else {
-        res.json(views[0].toClient()) // JSON
+        res.json(responses[0].toClient()) // JSON
         return res.end()
       }
     })

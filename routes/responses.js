@@ -6,17 +6,6 @@ var async = require('async')
 module.exports = function (app) {
   var create = function (req, res, next) {
     var toInsert = req.body
-    toInsert.comments = escape(toInsert.comments)
-
-    toInsert.loc = {
-      type: 'Point',
-      coordinates: [
-        parseFloat(req.body.lng),
-        parseFloat(req.body.lat)
-      ]
-    }
-    delete toInsert.lat
-    delete toInsert.lng
 
     if (!req.uploadedFileName) {
       res.writeHead(400, {'Content-Type': 'application/json'})
@@ -27,7 +16,7 @@ module.exports = function (app) {
 
     toInsert.photo = req.uploadedFileName
 
-    var FeedbackModel = mongoose.model('feedback')
+    var FeedbackModel = mongoose.model('response')
     var instance = new FeedbackModel(toInsert)
     instance.save(function (err) {
       if (err) {
@@ -36,8 +25,6 @@ module.exports = function (app) {
       }
 
       common.emailAdmins(instance)
-      // Publish event to the system
-      // req.app.emit('response:create', {response: instance})
 
       res.json(instance.toClient()) // JSON
       res.end()
@@ -67,22 +54,21 @@ module.exports = function (app) {
     }
 
     if (req.user.isSuper) {
-      mongoose.model('feedback').find({}, cback)
+      mongoose.model('response').find({}, cback)
     } else {
       common.getQueryLocations(req.user.areas, function (err, locQ) {
         if (err) {
           cback(err)
           return
         }
-        mongoose.model('feedback').find({loc: locQ}, cback)
+        mongoose.model('response').find({loc: locQ}, cback)
       })
     }
   }
 
   var remove = function (req, res, next) {
-    mongoose.model('feedback').findByIdAndRemove(req.params.id, function (err, doc) {
+    mongoose.model('response').findByIdAndRemove(req.params.id, function (err, doc) {
       if (err) return next(err)
-      req.app.emit('response:delete', {response: doc})
       res.redirect('/admin/responses')
     })
   }
@@ -101,12 +87,11 @@ module.exports = function (app) {
           if (req.body.words !== undefined) {
             // TODO - Make in to an Array
           }
-          mongoose.model('feedback').findOneAndUpdate({_id: req.params.id}, req.body, function (err, doc) {
+          mongoose.model('response').findOneAndUpdate({_id: req.params.id}, req.body, function (err, doc) {
             callback(err, doc)
-            req.app.emit('response:update', {response: doc})
           })
         } else {
-          mongoose.model('feedback').findOne({_id: req.params.id}).exec(function (err, docs) {
+          mongoose.model('response').findOne({_id: req.params.id}).exec(function (err, docs) {
             callback(err, docs)
           })
         }

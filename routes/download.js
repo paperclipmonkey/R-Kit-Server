@@ -17,7 +17,7 @@ module.exports = function (app) {
         for (var doc in docs) {
           cDocs.push(docs[doc].toCsv())
         }
-        json2csv({data: cDocs, fields: ['photo', 'comments', 'age', 'heading', 'knowarea', 'words', 'date', 'time', 'lat', 'lng', 'rating']}, function (csv) {
+        json2csv({data: cDocs, fields: ['photo', 'comments', 'age']}, function (csv) {
           var filename = 'RateMyView.csv'
           res.attachment(filename)
           res.end(csv)
@@ -42,7 +42,7 @@ module.exports = function (app) {
     var i = 0
     while (i < docs.length) {
       try {
-        zip.append(request('http://static.ratemyview.co.uk/uploads/' + docs[i].photo), {name: docs[i].photo})
+        zip.append(request(process.env.S3_URL + '/uploads/' + docs[i].photo), {name: docs[i].photo})
       } catch(err) {
         console.log(err)
       }
@@ -73,7 +73,7 @@ module.exports = function (app) {
         return res.send(500)
       }
       res.setHeader('Content-Disposition', 'attachment; filename=' + doc.photo)
-      request('http://static.ratemyview.co.uk/uploads/' + doc.photo).pipe(res)
+      request(process.env.S3_URL + '/uploads/' + doc.photo).pipe(res)
     })
   }
 

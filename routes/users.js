@@ -4,32 +4,6 @@ var async = require('async')
 var common = require('../common')
 
 module.exports = function (app) {
-  var removeFileUploads = function (req) {
-    // Remove all file uploads
-    for (var x in req.files) {
-      fs.unlink(req.files[x].path, function (err) {
-        if (err) {
-          console.log(err)
-        }
-      })
-    }
-  }
-
-  var uploadFiles = function (req, optionalId) {
-    if (!req.files) {
-      return
-    }
-    var id = optionalId ? optionalId : req.params.id
-    if (req.files.image && req.files.image.name) {
-      if (
-        req.files.image.name.split('.')[req.files.image.name.split('.').length - 1] === 'jpg' ||
-        req.files.image.name.split('.')[req.files.image.name.split('.').length - 1] === 'jpeg'
-      ) {
-        common.saveToS3(req.files.image.path, 'profile/' + id + '.jpg')
-      }
-    }
-    removeFileUploads(req)
-  }
 
   var users_list = function (req, res, next) {
     // TODO Remove Async
@@ -52,28 +26,6 @@ module.exports = function (app) {
       })
   }
 
-  var users_edit_areas = function (req, res, next) {
-    // TODO - Remove async
-    async.parallel({
-      user: function (callback) {
-        // Needs to update User.areas array
-        var update = {areas: []}
-        for (var i in req.body) {
-          update.areas.push(i)
-        }
-        mongoose.model('user').findOneAndUpdate({_id: req.params.id}, update, function (err, doc) {
-          callback(err, doc)
-        })
-      }
-    },
-      function (err, results) {
-        if (err) {
-          return next(err)
-        }
-        res.redirect('/admin/users/' + req.params.id)
-      })
-  }
-
   var users_edit = function (req, res, next) {
     var UserModel = mongoose.model('user')
     // TODO - clean us name checking, use variable
@@ -87,11 +39,9 @@ module.exports = function (app) {
               if (err) {
                 return next(err)
               }
-              uploadFiles(req, k._id)
               return res.redirect('/admin/users/' + k._id)
             })
           } else {
-            uploadFiles(req)
             mongoose.model('user').findOne({_id: req.params.id}, function (err, doc) {
               if (err) {
                 callback(err, [doc])
@@ -142,7 +92,6 @@ module.exports = function (app) {
     users_list: users_list,
     users_edit: users_edit,
     users_delete: users_delete,
-    users_edit_areas: users_edit_areas
   }
 
 }
