@@ -42,10 +42,10 @@
   },
   "analyze": false,
   "devDependencies": {
+    "mocha-standard": "1.0.0",
+    "standard": "5.1.0"
   },
   "bundledDependencies": [
-    "union",
-    "ecstatic"
   ],
   "license": "MIT",
   "engines": {
