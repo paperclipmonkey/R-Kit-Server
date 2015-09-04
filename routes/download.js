@@ -5,7 +5,7 @@ var json2csv = require('json2csv')
 var request = require('request')
 
 module.exports = function (app) {
-  var views_download_csv = function (req, res, next) {
+  var responses_download_csv = function (req, res, next) {
     var ids = req.params.ids
     ids = JSON.parse(ids)
     download_docs(ids, function (docs) {
@@ -28,10 +28,6 @@ module.exports = function (app) {
     })
   }
 
-  var view_download_kmz = function (req, res) {
-    download_docs([req.params.id], packageKML, res)
-  }
-
   function download_docs (ids, fun, res) {
     mongoose.model('feedback').find({_id: {$in: ids}}, function (err, docs) {
       if (err) {
@@ -42,7 +38,7 @@ module.exports = function (app) {
     })
   }
 
-  function add_images (docs, zip) {
+  function add_files (docs, zip) {
     var i = 0
     while (i < docs.length) {
       try {
@@ -55,58 +51,23 @@ module.exports = function (app) {
     return zip
   }
 
-  var views_download_images = function (req, res) {
+  var responses_download_files = function (req, res) {
     var ids = req.params.ids
     ids = JSON.parse(ids)
     download_docs(ids, function (docs) {
       var zip = archiver.create('zip')
-      res.attachment('images.zip')
+      res.attachment('files.zip')
       zip.pipe(res)
       zip.addListener('fail', function (err) {
         console.log(err)
       })
 
-      add_images(docs, zip)
+      add_files(docs, zip)
       zip.finalize()
     })
   }
 
-  var views_download_kmz = function (req, res) {
-    var ids = req.params.ids
-    ids = JSON.parse(ids)
-    download_docs(ids, packageKML, res)
-  }
-
-  function packageKML (docs, res) {
-    var zip = archiver.create('zip')
-    res.attachment('earth.kmz')
-    zip.pipe(res)
-
-    add_images(docs, zip)
-    createKML(docs, function (err, kmlString) {
-      if (err) {
-        console.log(new Error('Could not package KML'))
-      // next(err)
-      }
-      zip.append(
-        kmlString,
-        {name: 'doc.kml'}
-      )
-      zip.finalize()
-    })
-  }
-
-  var createKML = function (docs, fun) {
-    var handlebars = require('hbs').handlebars
-    fs.readFile('views/kml.kml', {encoding: 'utf8'}, function (err, templateCode) {
-      if (err) {return fun(err)}
-      var template = handlebars.compile(templateCode)
-      var finishedKML = template({docs: docs})
-      fun(err, finishedKML)
-    })
-  }
-
-  var view_download_image = function (req, res) {
+  var response_download_files = function (req, res) {
     mongoose.model('feedback').findOne({_id: req.params.id}).exec(function (err, doc) {
       if (err) {
         return res.send(500)
@@ -117,11 +78,9 @@ module.exports = function (app) {
   }
 
   return {
-    view_download_kmz: view_download_kmz,
-    view_download_image: view_download_image,
+    response_download_files: response_download_files,
     download_docs: download_docs,
-    views_download_csv: views_download_csv,
-    views_download_images: views_download_images,
-    views_download_kmz: views_download_kmz
+    responses_download_csv: responses_download_csv,
+    responses_download_files: responses_download_files,
   }
 }

@@ -73,22 +73,17 @@ module.exports = (function () {
   }
 
   app.get('/admin', middleware.ensureAuthenticated, routes.dashboard.dashboard)
-  app.get('/admin/dash/rating/average', middleware.ensureAuthenticated, routes.dashboard.dashboard_rating_average)
-  app.get('/admin/dash/rating/months', middleware.ensureAuthenticated, routes.dashboard.dashboard_rating_by_month)
-  app.get('/admin/dash/views/week', middleware.ensureAuthenticated, routes.dashboard.dashboard_views_week)
-  app.get('/admin/dash/views/months', middleware.ensureAuthenticated, routes.dashboard.dashboard_views_by_month)
-  app.get('/admin/dash/views/total', middleware.ensureAuthenticated, routes.dashboard.dashboard_views_total)
-  app.get('/admin/dash/views/words', middleware.ensureAuthenticated, routes.dashboard.dashboard_words)
-  app.get('/admin/dash/views/latest', middleware.ensureAuthenticated, routes.dashboard.dashboard_rating_average)
+  app.get('/admin/dash/responses/week', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_week)
+  app.get('/admin/dash/responses/months', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_by_month)
+  app.get('/admin/dash/responses/total', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_total)
+  app.get('/admin/dash/responses/latest', middleware.ensureAuthenticated, routes.dashboard.dashboard_rating_average)
 
   app.get('/admin/responses', middleware.ensureAuthenticated, routes.responses.admin_list)
   app.get('/admin/responses-datatables', middleware.ensureAuthenticated, routes.responses.datatables)
 
-  app.get('/admin/responses/download/csv/:ids', middleware.ensureAuthenticated, routes.download.views_download_csv)
-  app.get('/admin/responses/download/kmz/:ids', middleware.ensureAuthenticated, routes.download.views_download_kmz)
-  app.get('/admin/responses/download/images/:ids', middleware.ensureAuthenticated, routes.download.views_download_images)
-  app.get('/admin/responses/:id/download/kmz', middleware.ensureAuthenticated, routes.download.view_download_kmz)
-  app.get('/admin/responses/:id/download/image', middleware.ensureAuthenticated, routes.download.view_download_image)
+  app.get('/admin/responses/download/csv/:ids', middleware.ensureAuthenticated, routes.download.responses_download_csv)
+  app.get('/admin/responses/download/files/:ids', middleware.ensureAuthenticated, routes.download.responses_download_files)
+  app.get('/admin/responses/:id/download/files', middleware.ensureAuthenticated, routes.download.response_download_files)
 
   app.get('/admin/responses/:id', middleware.ensureAuthenticated, routes.responses.update)
   app.get('/admin/responses/:id/delete', middleware.ensureIsSuper, routes.responses.remove)

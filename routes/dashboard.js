@@ -27,11 +27,11 @@ module.exports = function (app) {
     }
 
     if (req.user.isSuper) {
-      mongoose.model('feedback').find({}, cback)
+      mongoose.model('response').find({}, cback)
     } else {
       common.getQueryLocations(req.user.areas, function (err, q) {
         if (err) {return cback(err)}
-        mongoose.model('feedback').find({
+        mongoose.model('response').find({
           'loc': q
         }, cback)
       })
@@ -52,17 +52,17 @@ module.exports = function (app) {
     // }
 
   // if(req.user.isSuper){
-  // 	mongoose.model("feedback").find(['words'],{},cback)
+  // 	mongoose.model("response").find(['words'],{},cback)
   // } else {
   // 	common.getQueryLocations(req.user.areas, function(err, q){
-  // 		mongoose.model("feedback").find(['words'],{
+  // 		mongoose.model("response").find(['words'],{
   // 			'loc' : q
   // 		}, cback)
   // 	})
   // }
   }
 
-  var dashboard_views_by_month = function (req, res, next) {
+  var dashboard_responses_by_month = function (req, res, next) {
     var cback = function (err, results) {
       if (err) {
         return next(new Error('Views by Month Error', err))
@@ -101,7 +101,7 @@ module.exports = function (app) {
     }
 
     var doQuery = function (filter) {
-      mongoose.model('feedback').aggregate(
+      mongoose.model('response').aggregate(
         filter,
         {
           $group: {
@@ -168,7 +168,7 @@ module.exports = function (app) {
     }
 
     var doQuery = function (filter) {
-      mongoose.model('feedback').aggregate(
+      mongoose.model('response').aggregate(
         filter,
         {
           $group: {
@@ -205,7 +205,7 @@ module.exports = function (app) {
     }
   }
 
-  var dashboard_views_total = function (req, res, next) {
+  var dashboard_responses_total = function (req, res, next) {
     var cback = function (err, results) {
       if (err) {
         return next(new Error('Dashboard Views Total Error', err))
@@ -214,16 +214,16 @@ module.exports = function (app) {
     }
 
     if (req.user.isSuper) {
-      mongoose.model('feedback').count({}, cback)
+      mongoose.model('response').count({}, cback)
     } else {
       common.getQueryLocations(req.user.areas, function (err, q) {
         if (err) {return cback(err)}
-        mongoose.model('feedback').count({loc: q}, cback)
+        mongoose.model('response').count({loc: q}, cback)
       })
     }
   }
 
-  var dashboard_views_week = function (req, res, next) {
+  var dashboard_responses_week = function (req, res, next) {
     var cback = function (err, results) {
       if (err) {
         return next(new Error('Dashboard Views Week Error', err))
@@ -235,11 +235,11 @@ module.exports = function (app) {
     weekAgo.setDate(weekAgo.getDate() - 7)
 
     if (req.user.isSuper) {
-      mongoose.model('feedback').count({'ts': {'$gte': weekAgo}}, cback)
+      mongoose.model('response').count({'ts': {'$gte': weekAgo}}, cback)
     } else {
       common.getQueryLocations(req.user.areas, function (err, q) {
         if (err) {return cback(err)}
-        mongoose.model('feedback').count({'ts': {'$gte': weekAgo}, loc: q}, cback)
+        mongoose.model('response').count({'ts': {'$gte': weekAgo}, loc: q}, cback)
       })
     }
   }
@@ -247,11 +247,9 @@ module.exports = function (app) {
   return {
     dashboard: dashboard,
     dashboard_rating_average: dashboard_rating_average,
-    dashboard_views_by_month: dashboard_views_by_month,
-    dashboard_rating_by_month: dashboard_rating_by_month,
-    dashboard_words: dashboard_words,
-    dashboard_views_total: dashboard_views_total,
-    dashboard_views_week: dashboard_views_week
+    dashboard_responses_by_month: dashboard_responses_by_month,
+    dashboard_responses_total: dashboard_responses_total,
+    dashboard_responses_week: dashboard_responses_week
   }
 
 }

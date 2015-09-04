@@ -100,10 +100,28 @@ describe('App API',function(){
 
 describe('Back-end',function(){
 	var rAgent;
+	var adminEmail = 'example@test.test'
+	var adminPassword = 'something'
+
 	before(function(done){
 		server = app.listen(process.env.PORT, function(){
 			rAgent = request.agent(app);
-			done();
+			//Remove example user if found
+			var mongoose = require('mongoose');
+			var User = mongoose.model('user');
+			var user = new User({
+				    email: adminEmail,
+				    password: 'something',
+				    salt: adminEmail,
+				    fullname: 'Test user',
+				    phoneno: '594930305838203',
+				    isSuper: true
+			})
+			try{
+				user.save()
+			} catch(e){}
+			done()
+			//Create example user
 		});
 	});
 
@@ -122,7 +140,7 @@ describe('Back-end',function(){
 	it('POST /admin/login should not login',function(done){
 	rAgent
 	  .post('/admin/login')
-	  .send({username: 'glastohacks@gmail.com', password: 'glastonbury1'})
+	  .send({username: adminEmail, password: adminPassword + 1})
 	  .expect(302)
 	  .expect('location', '/admin/login', done);
 	});
@@ -130,7 +148,7 @@ describe('Back-end',function(){
 	it('POST /admin/login should login & set cookie',function(done){
 	rAgent
 	  .post('/admin/login')
-	  .send({username: 'glastohacks@gmail.com', password: 'glastonbury'})
+	  .send({username: adminEmail, password: adminPassword})
 	  .expect(302)
 	  .expect('location', "/admin/", done);
 	});
@@ -313,35 +331,18 @@ describe('Downloads',function(){
 		});
 	});
 
-	//http://localhost:3010/admin/responses/download/images/[%225351a143a4288dea3100001c%22,%225351a12da4288dea3100001b%22,%2253387d9aa4288dea3100000b%22,%22527faa8d606d4f890300000b%22,%22527fa6ab606d4f8903000009%22,%22524ecfa9f682daf036000001%22]
-	it('GET /admin/responses/x/download/kmz should return kmz file',function(done){
+	it('GET /admin/responses/x/download/files should return files',function(done){
 		this.timeout(30000)
 		rAgent
-			.get('/admin/responses/' + viewId + '/download/kmz/')
-			//.expect('')//Check it has a filename
-			.expect(200,done);
-	});
-
-	it('GET /admin/responses/download/kmz/[ids] should return kmz file',function(done){
-		this.timeout(30000)
-		rAgent
-			.get('/admin/responses/download/kmz/["' + viewId + '"]')
-			//.expect('')//Check it has a filename
-			.expect(200,done);
-	});
-
-	it('GET /admin/responses/x/download/image should return image',function(done){
-		this.timeout(30000)
-		rAgent
-			.get('/admin/responses/' + viewId + '/download/image')
+			.get('/admin/responses/' + viewId + '/download/files')
 			//.expect('');//Check it has a filename
 			.expect(200,done);
 	});
 
-	it('GET /admin/responses/download/images/[] should return images',function(done){
+	it('GET /admin/responses/download/files/[] should return files',function(done){
 		this.timeout(30000)
 		rAgent
-			.get('/admin/responses/download/images/["' + viewId + '"]')
+			.get('/admin/responses/download/files/["' + viewId + '"]')
 			//.expect('');//Check it has a filename
 			.expect(200,done);
 	});
