@@ -10,7 +10,6 @@ module.exports = (function (app) {
     salt: {type: String},
     fullname: {type: String},
     phoneno: {type: String},
-    isSuper: {type: Boolean, default: false, required: true},
     emailOnResponse: {type: Boolean, default: false, required: true},
     areas: {type: [], default: []},
     lastLogin: {type: Date, required: true, default: Date.now}

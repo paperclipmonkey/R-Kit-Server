@@ -46,9 +46,6 @@ module.exports = function (app) {
               if (err) {
                 callback(err, [doc])
               }
-              if (typeof req.body.fullname === 'string' && req.body.isSuper === undefined) {
-                req.body.isSuper = false
-              }
               if (typeof req.body.fullname === 'string' && req.body.emailOnResponse === undefined) {
                 req.body.emailOnResponse = false
               }

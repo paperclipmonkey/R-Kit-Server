@@ -7,7 +7,7 @@ module.exports = (function (app) {
     nonce: {type: String},
     data: {type: Object, 'default': {}},
     files: {
-      type: Array,
+      type: [],
       required: false
     },
     ts: {type: Date, 'default': Date.now},

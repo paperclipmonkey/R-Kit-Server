@@ -41,11 +41,9 @@
 						<li {{#pageDashboard}} class="current" {{/pageDashboard}}>
 							<a href="/admin/" class="no-submenu"><!-- <span class="fam-house"></span> -->Dashboard</a>
 						</li>
-						{{#user.isSuper}}
 						<li {{#pageUsers}} class="current" {{/pageUsers}}>
 							<a href="/admin/users" class="no-submenu"><!-- <span class="fam-application-form"></span> -->Users</a>
 						</li>
-						{{/user.isSuper}}
 
 						<li {{#pageResponses}} class="current" {{/pageResponses}}>
 							<a href="/admin/responses" class="no-submenu"><!-- <span class="fam-application-view-columns"></span> -->Responses</a>

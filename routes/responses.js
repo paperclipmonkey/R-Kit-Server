@@ -7,13 +7,6 @@ module.exports = function (app) {
   var create = function (req, res, next) {
     var toInsert = req.body
 
-    if (!req.uploadedFileName) {
-      res.writeHead(400, {'Content-Type': 'application/json'})
-      res.write(JSON.stringify({'err': 'No photo attached!'}))
-      res.end()
-      return
-    }
-
     toInsert.photo = req.uploadedFileName
 
     var FeedbackModel = mongoose.model('response')
@@ -24,7 +17,7 @@ module.exports = function (app) {
         return res.end()
       }
 
-      common.emailAdmins(instance)
+      //common.emailAdmins(instance)
 
       res.json(instance.toClient()) // JSON
       res.end()
@@ -53,17 +46,7 @@ module.exports = function (app) {
       res.json({'aaData': snd})
     }
 
-    if (req.user.isSuper) {
-      mongoose.model('response').find({}, cback)
-    } else {
-      common.getQueryLocations(req.user.areas, function (err, locQ) {
-        if (err) {
-          cback(err)
-          return
-        }
-        mongoose.model('response').find({loc: locQ}, cback)
-      })
-    }
+    mongoose.model('response').find({}, cback)
   }
 
   var remove = function (req, res, next) {

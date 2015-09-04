@@ -43,17 +43,8 @@
 										{{#viewedit}}
 										<div class="tab-pane active" id="tab1">
 											<span class="btn btn-alt btn-file pull-right">
-												<a href="/admin/views/{{_id}}/download/kmz" class="fileupload-exists">Download to Google Earth</a>
-											</span>
-											{{/viewedit}}
-											{{#user.isSuper}}
-											{{#viewedit}}
-											<span class="btn btn-alt btn-file pull-right">
 												<a href="/admin/views/{{_id}}/delete" class="fileupload-exists">Delete</a>
 											</span>
-											{{/viewedit}}
-											{{/user.isSuper}}
-											{{#viewedit}}
 											<h2>General</h2>
 											<form class="form-horizontal" method="post">
 												<fieldset>
