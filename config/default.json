@@ -3,8 +3,10 @@
     "mongourl": "mongodb://localhost/rkit",
 	"sessionpw": "uywwlzxaer",
     "port": 3002,
-    "s3-accessKeyId": "AKIAIQCOD2VSJIYGIUAA",
-    "s3-secretAccessKey": "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",
-    "s3-region": "eu-west-1"
+    "S3_ACCESS_KEY_ID": "AKIAINOKS3KMGKI6YXHQ",
+    "S3_SECRET_ACCESS_KEY": "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",
+    "S3_REGION": "eu-west-1",
+    "S3_BUCKET": "r-kit",
+    "S3_URL": "http://r-kit.s3-website-eu-west-1.amazonaws.com"
   }
 }

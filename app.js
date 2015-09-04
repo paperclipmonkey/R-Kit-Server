@@ -10,7 +10,6 @@ module.exports = (function () {
   var errorHandler = require('errorhandler')
   var pass = require('./authenticate')
   var hbs = require('hbs')
-  var CONFIG = require('config').app
   var middleware = require('./routes/middleware')
 
   var routes = {
@@ -21,10 +20,9 @@ module.exports = (function () {
     responses: require('./routes/responses')(app)
   }
 
-  var mongoUrl = process.env.MONGOLAB_URI || CONFIG['mongourl']
-  console.log('Using database ' + mongoUrl)
+  console.log('Using database ' + process.env.MONGO_URI)
 
-  mongoose.connect(mongoUrl)
+  mongoose.connect(process.env.MONGO_URI)
 
   var app = express()
 

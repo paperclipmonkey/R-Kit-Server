@@ -1,8 +1,5 @@
-var app = require('./app'),
-	CONFIG = require('config').app;
+var app = require('./app')
 
-var port = process.env.PORT || CONFIG['port'];
-
-var server = app.listen(port, function() {
+var server = app.listen(process.env.PORT, function() {
     console.log('Listening on port %d', server.address().port);
 });

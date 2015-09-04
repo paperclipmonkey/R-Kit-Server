@@ -2,6 +2,6 @@
   "app": {
     "mongourl": "mongodb://localhost/rkit",
 	"sessionpw": "uywwlzxaer",
-    "port": 3002,
+    "port": 3002
   }
 }

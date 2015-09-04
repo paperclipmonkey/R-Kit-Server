@@ -1,4 +1,3 @@
-var mongoose = require('mongoose')
 var s3Client = require('./s3-client')
 
 function saveToS3 (localUrl, filename) {
@@ -6,9 +5,8 @@ function saveToS3 (localUrl, filename) {
     localFile: localUrl,
 
     s3Params: {
-      Bucket: 'static.ratemyview.co.uk',
-      Key: 'uploads/' + filename,
-      ACL: 'public-read'
+      Bucket: process.env.S3_BUCKET,
+      Key: 'uploads/' + filename
     // other options supported by putObject, except Body and ContentLength.
     // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
     }

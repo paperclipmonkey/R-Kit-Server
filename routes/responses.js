@@ -118,6 +118,7 @@ module.exports = function (app) {
         }
         res.render('responses/admin-response.html', {
           user: req.user,
+          static_url: process.env.S3_URL,
           responseedit: results.response,
           pageResponses: true
         })
