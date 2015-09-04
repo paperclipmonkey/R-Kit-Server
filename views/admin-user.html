@@ -1,0 +1,145 @@
+<html lang="en">
+	<head>{{> head}}</head>
+	<body>
+		<div class="container-fluid">
+			{{> menuside}}
+			<!-- Right (content) side -->
+			<section class="content-block" role="main">
+
+				<!-- Page header -->
+				<article class="page-header">
+					<h1>Add / Edit User</h1>
+					<p class="lead">Set up or edit an Adminstator account. Admins can log in to the system and view resposes.</p>
+				</article>
+				<!-- /Page header -->
+				
+				<!-- Grid row -->
+				<div class="row-fluid">
+
+					<!-- Data block -->
+
+					<article class="span12 data-block">
+						<div class="data-container">
+							<header>
+								<h2>User information</h2>
+							</header><!-- /header -->
+							<section class="tab-content">
+							
+								<!-- Side tabs -->
+								<div class="tabbable tabs-left">
+
+									<ul class="nav nav-tabs">
+										<li class="active"><a id="tabgeneral" href="#tab1" data-toggle="tab"><i class="fa fa-fw fa-pencil"></i>General</a></li>
+										<li><a id="tabpassword" href="#tab2" data-toggle="tab"><i class="fa fa-fw fa-key"></i>Password</a></li>
+									</ul>
+
+									<!-- Tab content -->
+									<div class="tab-content">
+
+										<!-- Tab #1 -->
+										<div class="tab-pane active" id="tab1">
+											<h2>General</h2>
+											<form class="form-horizontal" id="userdetails" method="post" enctype="multipart/form-data">
+												{{#useredit}}
+												<fieldset>
+													<div class="control-group">
+														<label class="control-label" for="input">Full name</label>
+														<div class="controls">
+															<input name="fullname" id="fullname" value="{{fullname}}" class="input-xlarge" type="text">
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="input">Email</label>
+														<div class="controls">
+															<input name="email" id="email" value="{{email}}" class="input-xlarge" type="email">
+															<p class="help-block">Please ensure the email address is correct, this is the primary means of contact</p>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="input">Phone no.</label>
+														<div class="controls">
+															<input id="phoneno" name="phoneno" value="{{phoneno}}" class="input-xlarge" type="tel" autofill="false">
+															<p class="help-block">Phone number will remain private and only used by the RmV team</p>
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="input">Email new views</label>
+														<div class="controls">
+															<input type="checkbox" id="emailOnResponse" name="emailOnResponse" value="true" {{#emailOnResponse}}checked="checked"{{/emailOnResponse}}></input>
+															<p class="help-block">If selected you'll be emailed about new resposes</p>
+														</div>
+													</div>
+													{{#unless email}}
+														<div class="control-group">
+															<label class="control-label" for="email">Password</label>
+															<div class="controls">
+																<input type="password" name="password" id="password" required autofill="false">
+																<p class="help-block">New password to login</p>
+															</div>
+														</div>
+													{{/unless}}
+													<div class="form-actions">
+														<button class="btn btn-alt btn-large btn-primary" type="submit">Save changes</button>
+													</div>
+												</fieldset>
+												{{/useredit}}
+											</form>
+										</div>
+
+										<!-- Tab #4 -->
+										<div class="tab-pane" id="tab2">
+											<h2>Change password</h2>
+											<section>
+												<p>Change the users password. Please ensure you memorise the password before saving</p>
+												<form class="form-horizontal password" id="userpassword" method="post" >
+													<fieldset>
+														<div class="control-group">
+															<label class="control-label" for="email">Password</label>
+															<div class="controls">
+																<input type="password" name="password" id="password" required>
+																<p class="help-block">New password to login</p>
+															</div>
+														</div>
+														<div class="control-group">
+															<label class="control-label" for="passwordAgain">Password again</label>
+															<div class="controls">
+																<input type="password" data-validation-matches-match="password" data-validation-matches-message="Must match password entered above" id="passwordAgain" name="passwordAgain">
+																<p class="help-block">And again, to check for speeling miskates</p>
+															</div>
+														</div>
+														<div class="form-actions">
+															<button class="btn btn-alt btn-large btn-primary" type="submit">Change password</button>
+														</div>
+													</fieldset>
+												</form>
+											</section>
+										</div>
+
+									</div>
+									<!-- Tab content -->
+
+								</div>
+								<!-- /Side tabs -->
+								
+							</section>
+						</div>
+					</article>
+					<!-- /Data block -->
+			</section>
+		</div>
+		{{> script}}
+		<!-- Form validation -->
+		<script src="/js/plugins/validation/jqBootstrapValidation.min.js"></script>
+		<script>
+			$(document).ready(function() {
+
+				$(".password input").jqBootstrapValidation({
+					//submitSuccess: function($form, event) {
+						//event.preventDefault();
+					//}
+				});
+
+			});
+		</script>
+	</body>
+</html>

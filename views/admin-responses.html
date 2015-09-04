@@ -1,0 +1,140 @@
+<html lang="en">
+	<head>
+		{{> head}}
+
+		<!--data tables -->
+		<script src="/js/plugins/dataTables/jquery.datatables.js"></script>
+		
+		<!-- Date range picker Styles -->
+		<link rel='stylesheet' type='text/css' href='/css/plugins/daterangepicker.css'>
+	</head>
+	<body>
+		<div class="container-fluid">
+			{{> menuside}}
+			<!-- Right (content) side -->
+			<section class="content-block" role="main">
+					<!-- Data block -->
+					<div>
+
+					<article class="data-block">
+						<div class="data-container">
+							<header>
+								<span class="pull-right">
+									<ul class="data-header-actions">
+										<li>
+											<a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="fa fa-fw fa-cloud-download"></i>Download</a>
+
+											<ul class="dropdown-menu datatable-controls">
+												<li>
+													<a href="/admin/views/download/kmz/" class="downloadbtn"><i class="fa fa-fw fa-map-marker"></i>Google Earth</a>
+												</li>
+												<li>
+													<a href="/admin/views/download/images/" class="downloadbtn"><i class="fa fa-fw fa-photo"></i>Images</a>
+												</li>
+												<li>
+													<a href="/admin/views/download/csv/" class="downloadbtn"><i class="fa fa-fw fa-list-ol"></i>Excel Spreadsheet</a>
+												</li>
+											</ul>
+										</li>
+									</ul>
+								</span>
+								<h2>Responses</h2>
+								<form class="form-inline views-filter">
+
+									<input type="text" placeholder="Search" id="myInputTextField"></input>
+									<!-- <div class="input-prepend">
+									//Turned off as dates in the last month don't work?
+										<span class="add-on">
+											<i class="icon-calendar"></i>
+										</span>
+										<input class="input-medium" type="text" placeholder="Date" name="daterangePicker" id="daterangePicker"/>
+									</div> -->
+								</form>
+								<!-- /Data block -->
+								<ul class="data-header-actions tabs nav nav-tabs">
+									<li class="active"><a data-toggle="tab" href="#one"><i class="fa fa-fw fa-list-ul"></i>List</a></li>
+								</ul>
+							</header>
+							<section class="tab-content">
+							
+								<!-- Tab #one -->
+								<div class="tab-pane active" id="one">
+									<section>
+										<table class="datatable table table-striped table-bordered table-hover" id="views-tables">
+											<thead>
+												<tr>
+													<th>ID</th>
+													<th>Location</th>
+													<th>Date</th>
+													<th>Words</th>
+													<th>Rating</th>
+													<th>Photo</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr class="odd gradeX">
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</section>
+								</div>
+									<!-- /Tab #one -->
+							</section>
+						</div>
+					</article>
+				</div>
+					<!-- /Data block -->
+				</section>
+		</div>
+		{{> script}}
+		<!-- Date range picker -->
+		<script type="text/javascript" src="/js/plugins/dateRangePicker/date.js"></script>
+		<script type="text/javascript" src="/js/plugins/dateRangePicker/daterangepicker.js"></script>
+		<script src='/js/plugins/dateRangePicker/moment.min.js'></script>
+
+		<script type="text/javascript" src="/js/admin-views.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function() {
+				
+				$('#daterangePicker').daterangepicker(
+					{
+						ranges: {
+							'Today': [moment(), moment()],
+							'Yesterday': [moment().subtract('days', 1), moment().subtract('days', 1)],
+							'Last 7 Days': [moment().subtract('days', 6), moment()],
+							'Last 30 Days': [moment().subtract('days', 29), moment()],
+							'This Month': [moment().startOf('month'), moment().endOf('month')],
+							'Last Month': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+						},
+						startDate: moment().subtract('days', 29),
+						endDate: moment()
+					},
+					function(start, end) {
+						$('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+						window.iMin = start;
+						window.iMax = end;
+						window.oTable.fnDraw();
+						initialiseMap();
+					}
+				);
+				$('.downloadbtn').click(function(e){
+					var markers = oTable._('tr', {"filter":"applied"});
+					var arr = [];
+					for (var i = 0; i < markers.length; i++) {
+						arr.push(markers[i][0]);
+					};
+					var str = JSON.stringify(arr);
+					window.location.href = $(this).attr('href') + str;
+					e.preventDefault();
+					return false;
+				});
+			});
+		</script>
+	</body>
+</html>

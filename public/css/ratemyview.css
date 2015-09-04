@@ -1,0 +1,64 @@
+.form-gallery .thumbnails .thumbnail{
+	border:none;
+}
+.dataTables_filter{
+	display: none;
+}
+#mapareas ul{
+	margin-bottom: 0
+}
+
+.calendar .table-condensed th, .calendar .table-condensed td{
+	padding: 3px 3px;
+}
+
+#views-tables tr {
+	cursor: pointer;
+}
+
+.form-inline.views-filter input {
+	height: 28px;
+	font-size: 17px;
+	line-height: normal;
+}
+
+.data-block header .data-header-actions.tabs > li > a, .data-block header .data-header-actions > li.tabs > a{
+	padding: 10px 15px !important;
+}
+
+.data-header-actions.nav-tabs{
+	margin-bottom: -8px !important;
+}
+
+#views-tables img{
+	max-width: 300px;
+	max-height: 300px;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input{
+	height: auto;
+}
+
+.navigation-block header h1 a{
+	background-image: url("../img/template_logo_s.png");
+}
+
+.login-page h1{
+	text-align: center;
+}
+
+.login-page .login-container{
+	margin: 60px auto 0;
+}
+
+.login-page{
+	height: auto;
+}
+
+td.align-center{
+	text-align: center;
+}
+
+.user-image{
+	max-width:200px;
+}

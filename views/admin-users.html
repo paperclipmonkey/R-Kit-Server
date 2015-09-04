@@ -1,0 +1,43 @@
+<html lang="en">
+	<head>{{> head}}</head>
+	<body>
+		<div class="container-fluid">
+			{{> menuside}}
+			<!-- Right (content) side -->
+			<section class="content-block" role="main">
+					<h1>
+						Users
+					</h1>
+					<h4 class="pull-right"><a href="/admin/users/new/">Add</a></h4>
+					<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th>Full name</th>
+								<th>Email</th>
+								<th>Last logged in</th>
+								<th>View</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							{{#users}}
+							<tr>
+								<td>{{fullname}}</td>
+								<td>{{email}}</td>
+								<td>{{lastLogin}}</td>
+								<td class="align-center">
+									<a href="/admin/users/{{_id}}" class="view-link">View</a>
+								</td>
+								<td class="align-center">
+									<a href="/admin/users/{{_id}}/delete" class="delete-link">Delete</a>
+								</td>
+							</tr>
+							{{/users}}
+						</tbody>
+					</table>
+				</div>
+			</section>
+		</div>
+		{{> script}}
+	</body>
+</html>

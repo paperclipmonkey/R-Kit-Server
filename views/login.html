@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--[if IE 8]>    <html class="no-js ie8 ie" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 ie" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    {{> head}}
+    <link rel='stylesheet' type='text/css' href='/css/chromatron-blue.css'>
+    <link rel='stylesheet' type='text/css' href='/css/ratemyview.css'>
+</head>
+<body class="login-page">
+        <div class="login-container">
+      
+      <!-- Login page logo -->
+      <img src="/img/template_logo.png" alt="R-Kit"/>
+      <h1>R-Kit Admin</h1>
+      <section>
+        
+        <!-- Sample alert -->
+<!--        <div class="alert alert-info alert-block fade in">
+          <button class="close" data-dismiss="alert">&times;</button>
+          <h4>Sample alert box!</h4> You do not need any username or passowrd to log-in.
+        </div> -->
+        <!-- /Sample alert -->
+        <!-- Login form -->
+        <form method="post" id="loginform" action="/admin/login/">
+          <fieldset>
+            <div class="control-group">
+              <label class="control-label" for="login">Email</label>
+              <div class="controls">
+                <input id="username" type="text" placeholder="Your email" name="username">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="password">Password</label>
+              <div class="controls">
+                <input id="password" type="password" placeholder="Password" name="password">
+<!--                 <label class="checkbox">
+                  <input id="optionsCheckbox" type="checkbox" value="option1"/> Remember me
+                </label> -->
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="btn btn-primary btn-alt" type="submit"><span class="awe-signin"></span> Log in</button>
+            </div>
+          </fieldset>
+        </form>
+        <!-- /Login form -->
+        
+      </section>
+      
+      <!-- Login page navigation -->
+      <nav>
+        <ul>
+          <li>Version: {{versionNo}}</li>
+          <li><a href="mailto:mike@threeequals.co.uk">Lost password?</a></li>
+          <li><a href="/">Back</a></li>
+        </ul>
+      </nav>
+      <!-- Login page navigation -->
+      
+    </div>
+    {{> script}}
+</body>
+</html>

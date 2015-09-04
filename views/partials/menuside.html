@@ -1,0 +1,58 @@
+			<!-- Navigation block toggle button -->
+			<a href="#" class="nav-toggle" title="On/Off navigation-block"><span class="awe-chevron-left"></span></a>
+			
+			<!-- Left (navigation) side -->
+			<section class="navigation-block">
+			
+				<!-- Main page header -->
+				<header>
+				
+					<!-- Main page logo -->
+					<h1><a class="brand" href="/admin/">R-Kit</a></h1>
+					
+					<!-- Main page headline -->
+					<p>R-kit Admin</p>
+					
+				</header>
+				<!-- /Main page header -->
+				
+				<!-- User profile -->
+				<section class="user-profile">
+					<figure>
+						<img alt="Avatar" src="/img/default_user.jpg">
+						<figcaption>
+							<strong><a href="/admin/users/{{user._id}}" class="">{{user.fullname}}</a></strong>
+							<em>{{user.organisation}}</em>
+							<ul>
+<!-- 							<li><a class="btn btn-primary btn-flat" href="#" title="View www.example.com">view website</a></li>
+ -->							<li><a class="btn btn-primary btn-flat" href="/admin/logout" title="Securely logout from application">logout</a></li>
+							</ul>
+						</figcaption>
+					</figure>
+				</section>
+				<!-- /User profile -->
+				
+				<!-- Responsive navigation -->
+				<a href="#" class="btn btn-navbar btn-large" data-toggle="collapse" data-target=".nav-collapse"><span class="fam-house"></span> Dashboard</a>
+				
+				<!-- Main navigation -->
+				<nav class="main-navigation nav-collapse" role="navigation">
+					<ul>
+						<li {{#pageDashboard}} class="current" {{/pageDashboard}}>
+							<a href="/admin/" class="no-submenu"><!-- <span class="fam-house"></span> -->Dashboard</a>
+						</li>
+						{{#user.isSuper}}
+						<li {{#pageUsers}} class="current" {{/pageUsers}}>
+							<a href="/admin/users" class="no-submenu"><!-- <span class="fam-application-form"></span> -->Users</a>
+						</li>
+						{{/user.isSuper}}
+
+						<li {{#pageResponses}} class="current" {{/pageResponses}}>
+							<a href="/admin/responses" class="no-submenu"><!-- <span class="fam-application-view-columns"></span> -->Responses</a>
+						</li>						
+					</ul>
+				</nav>
+				<!-- /Main navigation -->
+				
+			</section>
+			<!-- /Left (navigation) side -->
