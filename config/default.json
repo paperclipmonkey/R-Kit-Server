@@ -2,6 +2,9 @@
   "app": {
     "mongourl": "mongodb://localhost/rkit",
 	"sessionpw": "uywwlzxaer",
-    "port": 3002
+    "port": 3002,
+    "s3-accessKeyId": "AKIAIQCOD2VSJIYGIUAA",
+    "s3-secretAccessKey": "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",
+    "s3-region": "eu-west-1"
   }
 }
