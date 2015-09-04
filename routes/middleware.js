@@ -2,13 +2,6 @@ var mongoose = require('mongoose')
 var fs = require('fs')
 var common = require('../common')
 
-// Sanitise inputs for non admins - This stops them from upgrading their own settings
-function sanitiseInput (req) {
-  if (req.body.isSuper) {
-    req.body.isSuper = false
-  }
-}
-
 function randomUUID () {
   var s = []
   var itoh = '0123456789ABCDEF'
@@ -69,78 +62,9 @@ function saveUploadedFile (req, res, next) {
   }
 }
 
-function ensureIsSuper (req, res, next) {
-  if (req.isAuthenticated()) {
-    if (req.user.isSuper) {
-      return next()
-    }
-    return res.redirect('back')
-  }
-  return res.redirect('/admin/login')
-}
-
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
-    if (req.user.isSuper) { // If super admin allow access
       return next()
-    }
-
-    sanitiseInput(req) // Sanitise inputs for non-admins
-
-    var ids // Id(s) of accessed item(s)
-    if (req.params.id) {
-      ids = [req.params.id]
-      if (ids[0] === req.user._id.toString()) { // Own profile
-        return next()
-      }
-    } else {
-      try {
-        ids = JSON.parse(req.params.ids)
-      } catch(e) {}
-    }
-    if (!ids) {
-      return next()
-    }
-
-    for (var i = 0; i < req.user.areas.length; i++) {
-      for (var x = 0; x < ids.length; x++) {
-        if (ids[x] === req.user.areas[i].toString()) { // Own area
-          return next()
-        }
-      }
-    }
-
-    // Grab areas
-    // See if view is within areas
-    mongoose.model('area').find({_id: {$in: req.user.areas}}, function (err, areas) { // List of areas
-      if (err) {
-        return res.redirect('back')
-      }
-
-      if (!areas.length) {
-        return res.redirect('back')
-      }
-
-      // For each area find ID that is within area
-      for (var i = 0; i < areas.length; i++) {
-        mongoose.model('feedback').find(
-          {
-            'loc': { '$geoWithin': { '$geometry': areas[i].loc.toObject()
-              }
-            },
-            _id: {$in: ids}
-          },
-          function (err, docs) {
-            if (err) {
-              next(err)
-            }
-            if (docs.length === ids.length) {
-              return next()
-            }
-          }
-        )
-      }
-    })
   } else {
     return res.redirect('/admin/login')
   }
@@ -150,7 +74,7 @@ var check_nonce = function (req, res, next) {
   // Ensure we have a new view - check NONCE from App
   if (req.body.nonce) {
     // Do lookup in DB for nonce. Does it exist already?
-    mongoose.model('feedback').find({nonce: req.body.nonce}, function (err, views) {
+    mongoose.model('response').find({nonce: req.body.nonce}, function (err, views) {
       if (err) {
         return res.json(500, err)
       }
@@ -168,7 +92,6 @@ var check_nonce = function (req, res, next) {
 
 module.exports = {
   saveUploadedFile: saveUploadedFile,
-  ensureIsSuper: ensureIsSuper,
   ensureAuthenticated: ensureAuthenticated,
   check_nonce: check_nonce
 }

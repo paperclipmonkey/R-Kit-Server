@@ -26,40 +26,7 @@ module.exports = function (app) {
       res.json({'result': average})
     }
 
-    if (req.user.isSuper) {
-      mongoose.model('response').find({}, cback)
-    } else {
-      common.getQueryLocations(req.user.areas, function (err, q) {
-        if (err) {return cback(err)}
-        mongoose.model('response').find({
-          'loc': q
-        }, cback)
-      })
-    }
-  }
-
-  var dashboard_words = function (req, res, next) {
-    return next(new Error('Not implemented'))
-    // var cback = function(err, results){
-    // 	if(err){
-    // 	}
-    // 	var total = 0
-    // 	for (var i = results.length - 1; i >= 0; i--) {
-    // 		var cur = results[i]
-    // 		total += cur.rating
-    // 	}
-    // 	res.json({"result": Math.round((total / results.length)*10)/10})
-    // }
-
-  // if(req.user.isSuper){
-  // 	mongoose.model("response").find(['words'],{},cback)
-  // } else {
-  // 	common.getQueryLocations(req.user.areas, function(err, q){
-  // 		mongoose.model("response").find(['words'],{
-  // 			'loc' : q
-  // 		}, cback)
-  // 	})
-  // }
+    mongoose.model('response').find({}, cback)
   }
 
   var dashboard_responses_by_month = function (req, res, next) {
@@ -127,16 +94,7 @@ module.exports = function (app) {
       }
     }
 
-    if (req.user.isSuper) {
-      doQuery(filterQ)
-    } else {
-      common.getQueryLocations(req.user.areas, function (err, q) {
-        if (err) {return cback(err)}
-        filterQ['$match']['loc'] = q
-        doQuery(filterQ)
-      })
-    }
-
+    doQuery(filterQ)
   }
 
   var dashboard_rating_by_month = function (req, res, next) {
@@ -193,16 +151,7 @@ module.exports = function (app) {
         'ts': {'$gte': monthsAgo}
       }
     }
-
-    if (req.user.isSuper) {
-      doQuery(filterQ)
-    } else {
-      common.getQueryLocations(req.user.areas, function (err, q) {
-        if (err) {return cback(err)}
-        filterQ['$match']['loc'] = q
-        doQuery(filterQ)
-      })
-    }
+    doQuery(filterQ)
   }
 
   var dashboard_responses_total = function (req, res, next) {
@@ -212,15 +161,7 @@ module.exports = function (app) {
       }
       res.json({'result': results})
     }
-
-    if (req.user.isSuper) {
-      mongoose.model('response').count({}, cback)
-    } else {
-      common.getQueryLocations(req.user.areas, function (err, q) {
-        if (err) {return cback(err)}
-        mongoose.model('response').count({loc: q}, cback)
-      })
-    }
+    mongoose.model('response').count({}, cback)
   }
 
   var dashboard_responses_week = function (req, res, next) {
@@ -234,14 +175,7 @@ module.exports = function (app) {
     var weekAgo = new Date()
     weekAgo.setDate(weekAgo.getDate() - 7)
 
-    if (req.user.isSuper) {
-      mongoose.model('response').count({'ts': {'$gte': weekAgo}}, cback)
-    } else {
-      common.getQueryLocations(req.user.areas, function (err, q) {
-        if (err) {return cback(err)}
-        mongoose.model('response').count({'ts': {'$gte': weekAgo}, loc: q}, cback)
-      })
-    }
+    mongoose.model('response').count({'ts': {'$gte': weekAgo}}, cback)    
   }
 
   return {

@@ -26,7 +26,7 @@ describe('Front-end',function(){
 describe('App API',function(){
 	var rAgentba
 	var nonce
-	var viewId
+	var responseId
 	before(function(done){
 		server = app.listen(process.env.PORT, function(){
 			rAgent = request.agent(app)
@@ -68,7 +68,7 @@ describe('App API',function(){
 				nonce: nonce
 			})
 			.expect(200).end(function(err, res){
-				viewId = res.body.id;
+				responseId = res.body.id;
 				done();
 			});
 	});
@@ -88,7 +88,7 @@ describe('App API',function(){
 				lat: '11'
 			})
 			.expect(function(res){
-				return res.body.id !== viewId;//Works in reverse. True means error, false means pass
+				return res.body.id !== responseId;//Works in reverse. True means error, false means pass
 			}).end(done);
 	});
 
@@ -296,28 +296,20 @@ describe('Downloads',function(){
 	var responseModel = mongoose.model('response');
 
 	var rAgent;
-	var viewId;
+	var responseId;
 	before(function(done){
 		server = app.listen(process.env.PORT, function(){
 			//Create sample view
 			require('../models/Response.js');			//Include (view)
 			var responseObj = {
 				nonce: '9876543rtyhjhgf',
-				heading: '121.1',
-				loc: { coordinates: [11,22], type: 'Point' },
-				photo: '0A1CCEDB-B3E8-43BC-9F1E-05647381A5BC.jpg',
-				age: '0-18',
-				knowarea: 'Very well',
-				words: ['Something', 'Else','Here'],
-				comments: 'A comment',
-				ts: new Date(),
-				display: true
+				data: {'one':'one','two':'two'}
 			}
 			var response = new responseModel(responseObj);
 			response.save(function (err, obj) {
 				if(err){throw err}
 				//get ID of view
-				viewId = obj._id;
+				responseId = obj._id;
 
 				rAgent = request.agent(app);
 				//Login using the rAgent
@@ -334,7 +326,7 @@ describe('Downloads',function(){
 	it('GET /admin/responses/x/download/files should return files',function(done){
 		this.timeout(30000)
 		rAgent
-			.get('/admin/responses/' + viewId + '/download/files')
+			.get('/admin/responses/' + responseId + '/download/files')
 			//.expect('');//Check it has a filename
 			.expect(200,done);
 	});
@@ -342,14 +334,14 @@ describe('Downloads',function(){
 	it('GET /admin/responses/download/files/[] should return files',function(done){
 		this.timeout(30000)
 		rAgent
-			.get('/admin/responses/download/files/["' + viewId + '"]')
+			.get('/admin/responses/download/files/["' + responseId + '"]')
 			//.expect('');//Check it has a filename
 			.expect(200,done);
 	});
 
 	after(function(done) {
 		//Delete view
-		responseModel.remove({_id: viewId}, function(err,result){
+		responseModel.remove({_id: responseId}, function(err,result){
 			server.close();
 			done();
 		});

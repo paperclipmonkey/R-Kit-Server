@@ -86,10 +86,10 @@ module.exports = (function () {
   app.get('/admin/responses/:id/download/files', middleware.ensureAuthenticated, routes.download.response_download_files)
 
   app.get('/admin/responses/:id', middleware.ensureAuthenticated, routes.responses.update)
-  app.get('/admin/responses/:id/delete', middleware.ensureIsSuper, routes.responses.remove)
+  app.get('/admin/responses/:id/delete', routes.responses.remove)
   app.post('/admin/responses/:id', middleware.ensureAuthenticated, routes.responses.update)
 
-  app.get('/admin/users', middleware.ensureIsSuper, routes.users.users_list)
+  app.get('/admin/users', routes.users.users_list)
   app.get('/admin/users/:id', middleware.ensureAuthenticated, routes.users.users_edit)
   app.post('/admin/users/:id', middleware.ensureAuthenticated, multipart, routes.users.users_edit)
   app.get('/admin/users/:id/delete', middleware.ensureAuthenticated, routes.users.users_delete)
