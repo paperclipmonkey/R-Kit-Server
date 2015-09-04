@@ -3,7 +3,7 @@ Server for Research Kit
 
 Allows users to upload completed research studies
 
-[![Build Status](https://travis-ci.org/paperclipmonkey/R-Kit-Server.svg)](https://travis-ci.org/paperclipmonkey/R-Kit-Server)
+[![Build Status](https://api.travis-ci.com/paperclipmonkey/R-Kit.svg?token=SsrjjdmEtzcJsGDqjxQw&branch=master)](https://travis-ci.com/paperclipmonkey/R-Kit/)
 
 heroku local:run npm test
 heroku local
