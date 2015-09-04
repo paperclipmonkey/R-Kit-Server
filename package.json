@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "author": "Michael Waterworth <mike@3equals.co.uk>",
   "description": "Research Kit Server",
+  "private": true,
   "contributors": [
     {
       "name": "Michael Waterworth",
