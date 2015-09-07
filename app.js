@@ -76,7 +76,6 @@ module.exports = (function () {
   app.get('/admin/dash/responses/week', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_week)
   app.get('/admin/dash/responses/months', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_by_month)
   app.get('/admin/dash/responses/total', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_total)
-  app.get('/admin/dash/responses/latest', middleware.ensureAuthenticated, routes.dashboard.dashboard_rating_average)
 
   app.get('/admin/responses', middleware.ensureAuthenticated, routes.responses.admin_list)
   app.get('/admin/responses-datatables', middleware.ensureAuthenticated, routes.responses.datatables)
