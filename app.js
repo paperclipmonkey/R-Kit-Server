@@ -60,18 +60,6 @@ module.exports = (function () {
     return packageJSON.version
   })
 
-  function renderSelect (arr, val) {
-    var ret = ''
-    for (var i = 0; i < arr.length; i++) {
-      if (arr[i] === val) {
-        ret += "<option selected='selected'>" + arr[i] + '</option>'
-      } else {
-        ret += '<option>' + arr[i] + '</option>'
-      }
-    }
-    return ret
-  }
-
   app.get('/admin', middleware.ensureAuthenticated, routes.dashboard.dashboard)
   app.get('/admin/dash/responses/week', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_week)
   app.get('/admin/dash/responses/months', middleware.ensureAuthenticated, routes.dashboard.dashboard_responses_by_month)
