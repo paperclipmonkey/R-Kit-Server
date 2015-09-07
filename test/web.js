@@ -36,7 +36,7 @@ describe('App API',function(){
 		});
 	});
 
-	it('POST /response should return 200',function(done){
+	it('POST /response without file return 200',function(done){
 		this.timeout(10000)
 		//Load image from file
 		rAgent
@@ -47,6 +47,21 @@ describe('App API',function(){
 			})
 		.expect(200,done);
 	});
+
+	it('POST /response with file return 200',function(done){
+		this.timeout(10000)
+		//Load image from file
+		rAgent
+			.post('/response')
+		    .attach('image', __dirname + '/data/example.jpg', 'photo.jpg')
+			.send({
+			nonce: '4',
+			data: {'one':'two'}
+			})
+		.expect(200,done);
+	});
+
+
 
 	it('POST /response with nonce should return 200',function(done){
 		this.timeout(10000)
@@ -102,6 +117,9 @@ describe('Back-end',function(){
 			//Remove example user if found
 			var mongoose = require('mongoose');
 			var User = mongoose.model('user');
+
+			User.remove({'email': adminEmail}, function(e){})
+
 			var user = new User({
 				    email: adminEmail,
 				    password: 'something',
@@ -116,12 +134,19 @@ describe('Back-end',function(){
 					data: {'one':'one','two':'two'}
 			})
 			try{
-				user.save()
-				response.save(function(e,d){
-					responseId = d.id;
-				})
-			} catch(e){}
-				done()
+				user.save(function(e){
+						if(e) done(e)
+						response.save(function(e,d){
+							if(e) done(e)
+							responseId = d.id;
+							done()
+						})
+					}
+				)
+
+			} catch(e){
+				done(e)
+			}
 		});
 	});
 
@@ -221,6 +246,13 @@ describe('Back-end',function(){
 		  .expect(/\btest\b/, done);
 	});
 
+	it('POST /admin/users/x should edit user',function(done){
+		rAgent
+		  .post(userAdr)
+		  .expect(200)
+		  .expect(/\btest\b/, done);
+	});
+
 	it('DELETE /admin/users/x should delete new user',function(done){
 		rAgent
 		  .get(userAdr + '/delete')
@@ -234,7 +266,7 @@ describe('Back-end',function(){
 		rAgent
 		  .get('/admin/responses/')
 		  .expect(200)
-		  .expect(/\bLocation\b/, done);
+		  .expect(/\bR-kit\b/, done);
 	});
 
 	it('GET /admin/responses-datatables should show responses in datatables format',function(done){
@@ -248,16 +280,14 @@ describe('Back-end',function(){
 		//Find response ID.
 		rAgent
 		  .get('/admin/responses/' + responseId)
-		  .expect(200)
-		  .expect(/\aone\b/, done);
+		  .expect(200, done)
 	});
 
 	it('POST /admin/responses/x should show edit response',function(done){
 		//Find response ID.
 		rAgent
 		  .post('/admin/responses/' + responseId)
-		  .expect(302)
-		  .expect(/\aone\b/, done);
+		  .expect(200, done)
 	});
 
 	it('GET /admin/responses/x/delete should delete response',function(done){
@@ -320,21 +350,21 @@ describe('Downloads',function(){
 		});
 	});
 
-	// it('GET /admin/responses/x/download/files should return files',function(done){
-	// 	this.timeout(30000)
-	// 	rAgent
-	// 		.get('/admin/responses/' + responseId + '/download/files')
-	// 		//.expect('');//Check it has a filename
-	// 		.expect(200,done);
-	// });
+	it('GET /admin/responses/x/download/files should return files',function(done){
+		this.timeout(30000)
+		rAgent
+			.get('/admin/responses/' + responseId + '/download/files')
+			//.expect('');//Check it has a filename
+			.expect(200,done);
+	});
 
-	// it('GET /admin/responses/download/files/[] should return files',function(done){
-	// 	this.timeout(30000)
-	// 	rAgent
-	// 		.get('/admin/responses/download/files/["' + responseId + '"]')
-	// 		//.expect('');//Check it has a filename
-	// 		.expect(200,done);
-	// });
+	it('GET /admin/responses/download/files/[] should return files',function(done){
+		this.timeout(30000)
+		rAgent
+			.get('/admin/responses/download/files/["' + responseId + '"]')
+			//.expect('');//Check it has a filename
+			.expect(200,done);
+	});
 
 	after(function(done) {
 		//Delete view
