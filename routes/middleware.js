@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var fs = require('fs')
+var async = require('async')
 var common = require('../common')
 
 function randomUUID () {
@@ -27,15 +28,31 @@ function randomUUID () {
 }
 
 function saveUploadedFiles (req, res, next) {
+  function processQueue(passed, callback){
+    console.log(passed)
+    common.saveToS3(passed.file.path, passed.fileName, callback)
+  }
   if (req.files) {
+    var pushed = []
     req.uploadedFiles = []
+    var folderName = randomUUID()
     for(x in req.files){
       var file = req.files[x]
-      var fileName = randomUUID() + '/' + file.originalFilename//Retain original
+      var fileName = folderName + '/' + file.originalFilename//Retain original
       req.uploadedFiles.push(fileName)
-      common.saveToS3(file.path, fileName)
+      pushed.push({
+        file: file,
+        fileName: fileName
+      })
     }
-    return next()
+    async.map(pushed, processQueue.bind(processQueue),
+      function(err, result){
+        if(err){
+          return next(err)
+        }
+        next()
+      }
+    )
   } else {
     next()
   }

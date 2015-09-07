@@ -3,8 +3,32 @@ var fs = require('fs')
 var archiver = require('archiver')
 var json2csv = require('json2csv')
 var request = require('request')
+var s3Client = require('../s3-client')
 
 module.exports = function (app) {
+  function downloadFromS3 (filename) {
+    var s3Params = {
+        Bucket: process.env.S3_BUCKET,
+        Key: filename
+        //Key: 'example.jpg'
+        // other options supported by putObject, except Body and ContentLength.
+        // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
+    }
+    console.log(s3Params.Key)
+    var uploader = s3Client.downloadStream(s3Params)
+    uploader.on('error', function (err) {
+      console.error('unable to download from S3:', err.stack)
+    })
+    uploader.on('progress', function () {
+      //console.log("progress", uploader.progressMd5Amount,
+      //uploader.progressAmount, uploader.progressTotal)
+    })
+    uploader.on('end', function () {
+      //console.log("done downloading from S3")
+    })
+    return uploader;
+  }
+
   var responses_download_csv = function (req, res, next) {
     var ids = req.params.ids
     ids = JSON.parse(ids)
@@ -28,23 +52,27 @@ module.exports = function (app) {
     })
   }
 
-  function download_docs (ids, fun, res) {
-    mongoose.model('feedback').find({_id: {$in: ids}}, function (err, docs) {
+  function download_docs (ids, done, res) {
+    mongoose.model('response').find({_id: {$in: ids}}, function (err, docs) {
       if (err) {
         // next(err)
         console.log(new Error('Could not find docs'))
       }
-      fun(docs, res)
+      done(docs, res)
     })
   }
 
   function add_files (docs, zip) {
     var i = 0
+    var f = 0
     while (i < docs.length) {
-      try {
-        zip.append(request(process.env.S3_URL + '/uploads/' + docs[i].photo), {name: docs[i].photo})
-      } catch(err) {
-        console.log(err)
+      while (f < docs[i].files.length) {
+        try {
+          zip.append(downloadFromS3(process.env.S3_URL + '/uploads/' + docs[i].photo), {name: docs[i].photo})
+        } catch(err) {
+          console.log(err)
+        }
+        f++
       }
       i++
     }
@@ -67,18 +95,23 @@ module.exports = function (app) {
     })
   }
 
-  var response_download_files = function (req, res) {
-    mongoose.model('feedback').findOne({_id: req.params.id}).exec(function (err, doc) {
+  var response_download_file = function (req, res, next) {
+    mongoose.model('response').findOne({_id: req.params.id}).exec(function (err, doc) {
       if (err) {
-        return res.send(500)
+        return res.sendStatus(500)
       }
-      res.setHeader('Content-Disposition', 'attachment; filename=' + doc.photo)
-      request(process.env.S3_URL + '/uploads/' + doc.photo).pipe(res)
+      //is file ID in there?
+      if(doc.files[req.params.file]){
+        res.setHeader('Content-Disposition', 'attachment; filename=' + doc.files[req.params.file])
+        downloadFromS3('/uploads/' + doc.files[req.params.file]).pipe(res)
+      } else {
+        return next(new Error('file doesn\'t exist'))
+      }
     })
   }
 
   return {
-    response_download_files: response_download_files,
+    response_download_file: response_download_file,
     download_docs: download_docs,
     responses_download_csv: responses_download_csv,
     responses_download_files: responses_download_files,

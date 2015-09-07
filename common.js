@@ -1,6 +1,6 @@
 var s3Client = require('./s3-client')
 
-function saveToS3 (localUrl, filename) {
+function saveToS3 (localUrl, filename, cback) {
   var params = {
     localFile: localUrl,
 
@@ -14,13 +14,14 @@ function saveToS3 (localUrl, filename) {
   var uploader = s3Client.uploadFile(params)
   uploader.on('error', function (err) {
     console.error('unable to upload to S3:', err.stack)
+    cback(err)
   })
   uploader.on('progress', function () {
     // console.log("progress", uploader.progressMd5Amount,
     //           uploader.progressAmount, uploader.progressTotal)
   })
   uploader.on('end', function () {
-    // console.log("done uploading to S3")
+    cback()
   })
 }
 

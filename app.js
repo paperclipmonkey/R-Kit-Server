@@ -82,7 +82,7 @@ module.exports = (function () {
 
   app.get('/admin/responses/download/csv/:ids', middleware.ensureAuthenticated, routes.download.responses_download_csv)
   app.get('/admin/responses/download/files/:ids', middleware.ensureAuthenticated, routes.download.responses_download_files)
-  app.get('/admin/responses/:id/download/files', middleware.ensureAuthenticated, routes.download.response_download_files)
+  app.get('/admin/responses/:id/download/file/:file', middleware.ensureAuthenticated, routes.download.response_download_file)
 
   app.get('/admin/responses/:id', middleware.ensureAuthenticated, routes.responses.update)
   app.get('/admin/responses/:id/delete', routes.responses.remove)
