@@ -69,54 +69,20 @@ try{
 } catch(e){};
 
 //Load the last 10 views owned by this user
-$.get('/admin/views-datatables/', function(data){
-	markers = data.aaData;
-	var length = markers.length > 10 ? 10 : markers.length;
-	for (var i = 0; i < length; i++) {
-		var mark = L.marker([markers[i][1].coordinates[1], markers[i][1].coordinates[0]], {draggable: false, title: 'Click to view', id: markers[i][0]});
-		mark.on('click', function(e){
-			document.location.href="/admin/views/" + e.target.options.id;
-		});
-		markersOverlay.addLayer(mark);
-	}
+$.get('/admin/responses-datatables/', function(data){
 });
-
-//TODO - Plumb function in
-/*
-$.get('/admin/dash/views/words', function(words){
-	drawCloud(words);
-});
-*/
 
 /* - - - - - - - - - - Get data - - - - - - - - - */
 
-$.get('/admin/dash/views/total', function(data){
+$.get('/admin/dash/responses/total', function(data){
 	$('.stats-total').text(data.result);
 });
 
-$.get('/admin/dash/views/week', function(data){
+$.get('/admin/dash/responses/week', function(data){
 	$('.stats-total-week').text(data.result);
 });
 
-$.get('/admin/dash/rating/average', function(data){
-	$('.stats-average').text(data.result);
-});
-
-$.get('/admin/dash/rating/months', function(data){
-	var month = new Date().getMonth() + 2;
-	for(var i = 1; i <= 12; i++) {
-		if(month > 12){
-			month = 1;
-		}
-		var k = data.result[month];
-		$('.views.rating.months.names').append($('<th>').text(k.name));
-		$('.views.rating.months.values').append($('<td>').text(k.value));
-		month++;
-	}
-	responsiveVisualize();
-});
-
-$.get('/admin/dash/views/months', function(data){
+$.get('/admin/dash/responses/months', function(data){
 	var month = new Date().getMonth() + 2;
 	for(var i = 1; i <= 12; i++) {
 		if(month > 12){
