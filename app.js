@@ -93,7 +93,7 @@ module.exports = (function () {
   app.post('/admin/users/:id', middleware.ensureAuthenticated, multipart, routes.users.users_edit)
   app.get('/admin/users/:id/delete', middleware.ensureAuthenticated, routes.users.users_delete)
 
-  app.post('/response', middleware.check_nonce, multipart, middleware.saveUploadedFile, routes.responses.create)
+  app.post('/response', middleware.check_nonce, multipart, middleware.saveUploadedFiles, routes.responses.create)
 
   app.get('/admin/login', routes.authenticate.login)
   app.get('/admin/logout', routes.authenticate.logout)
@@ -111,6 +111,7 @@ module.exports = (function () {
 
   // Error handling
   app.use(function (err, req, res, next) {
+    console.log(err)
     if (!err) return next()
     if (!res.headersSent) {
       res.sendStatus(400)

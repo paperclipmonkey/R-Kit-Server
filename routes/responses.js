@@ -7,7 +7,7 @@ module.exports = function (app) {
   var create = function (req, res, next) {
     var toInsert = req.body
 
-    toInsert.photo = req.uploadedFileName
+    toInsert.files = req.uploadedFiles
 
     var FeedbackModel = mongoose.model('response')
     var instance = new FeedbackModel(toInsert)
@@ -41,7 +41,7 @@ module.exports = function (app) {
       var snd = []
       for (var i = results.length - 1; i >= 0; i--) {
         var cur = results[i]
-        snd.push([cur._id, cur.loc, cur.ts, cur.words, cur.rating, cur.photo])
+        snd.push([cur._id, cur.ts, cur.data, cur.files])
       }
       res.json({'aaData': snd})
     }
@@ -61,15 +61,6 @@ module.exports = function (app) {
     async.parallel({
       response: function (callback) {
         if (req.method === 'POST') {
-          if (req.body.display === undefined && req.body.loc === undefined) { // If we do a location update we also don't update this
-            req.body.display = false
-          }
-          if (req.body.loc) {
-            req.body.loc = {'coordinates': JSON.parse(req.body.loc), 'type': 'Point'}
-          }
-          if (req.body.words !== undefined) {
-            // TODO - Make in to an Array
-          }
           mongoose.model('response').findOneAndUpdate({_id: req.params.id}, req.body, function (err, doc) {
             callback(err, doc)
           })
@@ -84,7 +75,7 @@ module.exports = function (app) {
         if (err) {
           return next(err)
         }
-        res.render('responses/admin-response.html', {
+        res.render('views/admin-response.html', {
           user: req.user,
           static_url: process.env.S3_URL,
           responseedit: results.response,

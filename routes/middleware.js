@@ -26,25 +26,16 @@ function randomUUID () {
   return s.join('')
 }
 
-function saveUploadedFile (req, res, next) {
-  var filename = randomUUID() + '.jpg'
-  var localUrl = __dirname + '/../tmp/' + filename
-  
-  if (req.files && req.files.image && req.files.image.name) {
-    if (
-      req.files.image.name.split('.')[req.files.image.name.split('.').length - 1] === 'jpg' ||
-      req.files.image.name.split('.')[req.files.image.name.split('.').length - 1] === 'jpeg'
-    ) {
-      fs.rename(req.files.image.path, localUrl, function (err) {
-        if (err) {
-          console.error('Problem renaming uploaded file')
-          return next(err)
-        }
-        req.uploadedFileName = filename
-        common.saveToS3(localUrl, filename)
-        return next()
-      })
+function saveUploadedFiles (req, res, next) {
+  if (req.files) {
+    req.uploadedFiles = []
+    for(x in req.files){
+      var file = req.files[x]
+      var fileName = randomUUID() + '/' + file.originalFilename//Retain original
+      req.uploadedFiles.push(fileName)
+      common.saveToS3(file.path, fileName)
     }
+    return next()
   } else {
     next()
   }
@@ -79,7 +70,7 @@ var check_nonce = function (req, res, next) {
 }
 
 module.exports = {
-  saveUploadedFile: saveUploadedFile,
+  saveUploadedFiles: saveUploadedFiles,
   ensureAuthenticated: ensureAuthenticated,
   check_nonce: check_nonce
 }
