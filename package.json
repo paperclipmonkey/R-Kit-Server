@@ -42,11 +42,11 @@
   },
   "analyze": false,
   "devDependencies": {
+    "istanbul": "^0.3.19",
     "mocha-standard": "1.0.0",
     "standard": "5.1.0"
   },
-  "bundledDependencies": [
-  ],
+  "bundledDependencies": [],
   "license": "MIT",
   "engines": {
     "node": ">=0.10"
