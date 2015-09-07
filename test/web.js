@@ -320,6 +320,15 @@ describe('Back-end',function(){
 			.expect(200,done);
 	});
 
+	//http://localhost:65317/admin/responses/download/csv/[%2255ed9fe96ee49fefa1e92240%22]
+	it('GET /admin/responses/download/csv/[] should return csv spreadsheet',function(done){
+		this.timeout(30000)
+		rAgent
+			.get('/admin/responses/download/csv/["' + responseIdWithFiles + '"]')
+			//.expect('');//Check it has a filename
+			.expect(200,done);
+	});
+
 	it('GET /admin/responses/x/delete should delete response',function(done){
 		//Find response ID.
 		rAgent

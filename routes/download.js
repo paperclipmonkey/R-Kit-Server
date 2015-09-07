@@ -40,8 +40,8 @@ module.exports = function (app) {
         for (var doc in docs) {
           cDocs.push(docs[doc].toCsv())
         }
-        json2csv({data: cDocs, fields: ['photo', 'comments', 'age']}, function (csv) {
-          var filename = 'RateMyView.csv'
+        json2csv({data: cDocs, fields: ['id', 'ts', 'data', 'files']}, function (csv) {
+          var filename = 'R-Kit.csv'
           res.attachment(filename)
           res.end(csv)
         })
