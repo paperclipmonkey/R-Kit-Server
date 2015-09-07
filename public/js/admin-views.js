@@ -98,7 +98,7 @@ $.extend( $.fn.dataTableExt.oPagination, {
 
 /* Show/hide table column */
 function dtShowHideCol( iCol ) {
-	var oTable = $('#views-tables').dataTable();
+	var oTable = $('#responses-tables').dataTable();
 	var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
 	oTable.fnSetColumnVis( iCol, bVis ? false : true );
 }
@@ -156,22 +156,13 @@ $(document).ready(function() {
 		"oLanguage": {
 			"sLengthMenu": "_MENU_ records per page"
 		},
-		"sAjaxSource": '/admin/views-datatables',
+		"sAjaxSource": '/admin/responses-datatables',
 		"aoColumnDefs": [
 			{
 				"aTargets": [ 0 ],
 				"bVisible": false
 			},
 			{
-				// `data` refers to the data for the cell (defined by `mData`, which
-				// defaults to the column being worked with, in this case is the first
-				// Using `row[0]` is equivalent.
-				"mRender": function ( data, type, row ) {
-					return '<img src="http://maps.googleapis.com/maps/api/staticmap?center=' + data.coordinates[1] + ',' + data.coordinates[0] + '&zoom=11&size=200x200&sensor=false&visual_refresh=true&markers=color:red%7C'+ data.coordinates[1] + ',' + data.coordinates[0] + '">';
-				},
-				"aTargets": [ 1 ]
-			},
-				{
 			// `data` refers to the data for the cell (defined by `mData`, which
 			// defaults to the column being worked with, in this case is the first
 			// Using `row[0]` is equivalent.
@@ -196,21 +187,13 @@ $(document).ready(function() {
 					}
 					return day + '/' + month + '/' + d.getFullYear() + ' ' + hour + ':' + minute;
 				},
-				"aTargets": [ 2 ]
-			},
-			{
-				"mRender": function ( data, type, row ) {
-					return '<img src="http://static.ratemyview.co.uk/uploads/' + data + '"/>';
-				},
-				"aTargets": [ 5 ]
-            }
-            //{ "bVisible": false,  "aTargets": [ 3 ] },
-            //{ "sClass": "center", "aTargets": [ 4 ] }
+				"aTargets": [ 1 ]
+			 }
         ]
 	});
 	$('.datatable tbody tr').live('click', function () {
 		var aData = oTable.fnGetData( this );
-		window.location.href= "/admin/views/" + aData[0];
+		window.location.href= "/admin/responses/" + aData[0];
 	});
 	//oTable.fnSetColumnVis('0', false);
 	$('.datatable-controls').on('click','li input',function(){
