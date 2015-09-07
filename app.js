@@ -111,7 +111,7 @@ module.exports = (function () {
 
   // Error handling
   app.use(function (err, req, res, next) {
-    console.log(err)
+    //console.log(err)
     if (!err) return next()
     if (!res.headersSent) {
       res.sendStatus(400)
