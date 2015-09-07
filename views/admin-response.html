@@ -1,8 +1,6 @@
 <html lang="en">
 	<head>
 		{{> head}}
-
-		{{> maphead}}
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -12,8 +10,8 @@
 
 				<!-- Page header -->
 				<article class="page-header">
-					<h1>Edit View</h1>
-					<p class="lead">Edit a view submitted by a user.</p>
+					<h1>Edit Response</h1>
+					<p class="lead">Edit a response submitted by a user.</p>
 				</article>
 				<!-- /Page header -->
 				
@@ -25,7 +23,7 @@
 					<article class="data-block">
 						<div class="data-container">
 							<header>
-								<h2>View information</h2>
+								<h2>Response information</h2>
 							</header><!-- /header -->
 							<section class="tab-content">
 							
@@ -34,37 +32,19 @@
 
 									<ul class="nav nav-tabs">
 										<li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-fw fa-pencil"></i>General</a></li>
-										<li><a href="#tab2" data-toggle="tab"><i class="fa fa-fw fa-map-marker"></i>Location</a></li>
 									</ul>
 
 									<!-- Tab content -->
 									<div class="tab-content">
 										<!-- Tab #1 -->
-										{{#viewedit}}
+										{{#responseedit}}
 										<div class="tab-pane active" id="tab1">
 											<span class="btn btn-alt btn-file pull-right">
-												<a href="/admin/views/{{_id}}/delete" class="fileupload-exists">Delete</a>
+												<a href="/admin/responses/{{_id}}/delete" class="fileupload-exists">Delete</a>
 											</span>
 											<h2>General</h2>
 											<form class="form-horizontal" method="post">
 												<fieldset>
-													<div class="control-group">
-														<label class="control-label" for="avatar">Image</label>
-														<div class="controls">
-															<div>
-																<div class="thumbnail"><img src="{{/viewedit}}{{static_url}}}{{#viewedit}}/uploads/{{photo}}"></div>
-																<span class="btn btn-alt btn-file">
-																	<a href="/admin/views/{{_id}}/download/image" class="fileupload-exists">Download image</a>
-																</span>
-															</div>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="input">Rating</label>
-														<div class="controls">
-															<span>{{rating}}/5</span>
-														</div>
-													</div>
 													<div class="control-group">
 														<label class="control-label" for="input">Time &amp; Date</label>
 														<div class="controls">
@@ -72,72 +52,25 @@
 														</div>
 													</div>
 													<div class="control-group">
-														<label class="control-label" for="input">Heading</label>
+														<label class="control-label" for="textarea">Data</label>
 														<div class="controls">
-														<div class="input-append">
-															<input id="heading" name="heading" value="{{heading}}" class="input-mini" type="text"><span class="add-on">&deg;</span>
-														</div>
-															<p class="help-block">Heading as measured from the device when taking the photo</p>
+															<textarea name="comments">{{data}}</textarea>
+															<p class="help-block">Data from the upload</p>
 														</div>
 													</div>
 													<div class="control-group">
-														<label class="control-label" for="input">Words</label>
+														<label class="control-label" for="textarea">Files</label>
 														<div class="controls">
-															<input id="words" name="words" value="{{words}}" class="input-xlarge" type="text">
-															<p class="help-block">Up to 3 words or phrases relating to the view</p>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="textarea">Comments</label>
-														<div class="controls">
-															<textarea name="comments">{{comments}}</textarea>
-															<p class="help-block">Comments relating to the view</p>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="input">Age</label>
-														<div class="controls">
-															<select id="knowarea" name="age" {{/viewedit}}{{#unless user.isSuper}}disabled="disabled"{{/unless}}{{#viewedit}}>
-																{{#viewFormSelectAge}}{{/viewFormSelectAge}}
-															</select>
-															<p class="help-block">Age of the user</p>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="input">Know area</label>
-														<div class="controls">
-															<select id="knowarea" name="knowarea" {{/viewedit}}{{#unless user.isSuper}}disabled="disabled"{{/unless}}{{#viewedit}}>
-																{{#viewFormSelectKnow}}{{/viewFormSelectKnow}}
-															</select>
-															<p class="help-block">How well the user knows the area they're rating</p>
-														</div>
-													</div>
-													<div class="control-group">
-														<label class="control-label" for="input">Public</label>
-														<div class="controls">
-															<input type="checkbox" name="display" value="true" {{#display}}checked="checked"{{/display}}></input>
-															<p class="help-block">Allows hiding of views temporarily</p>
+															<textarea name="comments">{{files}}</textarea>
+															<p class="help-block">Files from the upload</p>
 														</div>
 													</div>
 													<div class="form-actions">
 														<button class="btn btn-alt btn-large btn-primary" type="submit">Save changes</button>
 													</div>
 												</fieldset>
-												{{/viewedit}}
+												{{/responseedit}}
 											</form>
-										</div>
-
-										<!-- Tab #4 -->
-										<div class="tab-pane" id="tab2">
-											<form class="form-horizontal" method="post">
-												<input type="hidden" name="loc" id="loc"></input>
-												<button class="btn btn-alt btn-large btn-primary pull-right" type="submit">Save location</button>
-											</form>
-											<h2>Change location</h2>
-											<section>
-												<div id='mapO' style="height:60%; width:100%">
-												</div>
-											</section>
 										</div>
 
 									</div>
@@ -153,59 +86,5 @@
 			</section>
 		</div>
 		{{> script}}
-		<script type="text/javascript">
-			function initialiseMap(){
-				if(typeof window.map === 'undefined'){
-					var coordinates = [{{#viewedit}}{{loc.coordinates}}{{/viewedit}}];
-					coordinates = [coordinates[1], coordinates[0]];
-					window.map = L.mapbox.map('mapO').setView(coordinates, 10);
-					L.control.layers({
-					    'Terrain': L.mapbox.tileLayer('paperclipmonkey.map-zr7oe1u7').addTo(map),
-					    'Satellite': L.mapbox.tileLayer('paperclipmonkey.map-asryj7mr')
-					}, {}, {position: 'bottomleft'}).addTo(map);
-
-					window.markerLocation = L.marker(coordinates, {draggable: true, title: 'Drag to move'}).addTo(map);
-					markerLocation.on('move', function(){
-						$('#loc').val(
-							JSON.stringify(
-								[this.getLatLng().lng, this.getLatLng().lat]
-							)
-						);
-					});
-					markerLocation.fire('move');
-					drawSubmissionArea(map);
-				}
-			}
-
-			function drawSubmissionArea(map){
-				$.get("/admin/areas/api", function(areasArray){
-					for (var i = 0; i < areasArray.length; i++) {
-						var polyline_options = {
-							color: '#000',
-							opacity: 1,         // Stroke opacity
-							weight: 1,         // Stroke weight
-							fillOpacity: 0    // Fill opacity,
-						};
-
-						//$('#mapareas ul').append('<li><a href="/admin/areas/' + areasArray[i]._id + '">' + areasArray[i].name + '</li>');
-
-						var mapPoints = areasArray[i].loc;
-						polyline_options.name = areasArray[i].name;
-						polyline_options.id = areasArray[i]._id;
-						var poly = L.geoJson(mapPoints, polyline_options);
-						poly.addTo(map);
-						poly.addEventListener('click',function(e){
-							window.location = "/admin/areas/" + e.target.options.id;
-						});
-					}
-				});
-			}
-
-			$('a[data-toggle="tab"]').on('shown', function (e) {
-			  if(e.target.text === 'Location'){ // activated tab
-				initialiseMap();
-			  }
-			})
-		</script>
 	</body>
 </html>
