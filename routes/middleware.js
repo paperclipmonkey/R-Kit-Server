@@ -29,7 +29,6 @@ function randomUUID () {
 
 function saveUploadedFiles (req, res, next) {
   function processQueue(passed, callback){
-    console.log(passed)
     common.saveToS3(passed.file.path, passed.fileName, callback)
   }
   if (req.files) {

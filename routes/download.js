@@ -14,19 +14,18 @@ module.exports = function (app) {
         // other options supported by putObject, except Body and ContentLength.
         // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
     }
-    console.log(s3Params.Key)
-    var uploader = s3Client.downloadStream(s3Params)
-    uploader.on('error', function (err) {
+    var downloader = s3Client.downloadStream(s3Params)
+    downloader.on('error', function (err) {
       console.error('unable to download from S3:', err.stack)
     })
-    uploader.on('progress', function () {
-      //console.log("progress", uploader.progressMd5Amount,
-      //uploader.progressAmount, uploader.progressTotal)
+    downloader.on('progress', function () {
+      //console.log("progress", downloader.progressMd5Amount,
+      //downloader.progressAmount, downloader.progressTotal)
     })
-    uploader.on('end', function () {
+    downloader.on('end', function () {
       //console.log("done downloading from S3")
     })
-    return uploader;
+    return downloader;
   }
 
   var responses_download_csv = function (req, res, next) {
@@ -68,7 +67,7 @@ module.exports = function (app) {
     while (i < docs.length) {
       while (f < docs[i].files.length) {
         try {
-          zip.append(downloadFromS3(process.env.S3_URL + '/uploads/' + docs[i].photo), {name: docs[i].photo})
+          zip.append(downloadFromS3('uploads/' + docs[i].file[f]), {name: docs[i].photo})
         } catch(err) {
           console.log(err)
         }
@@ -98,12 +97,13 @@ module.exports = function (app) {
   var response_download_file = function (req, res, next) {
     mongoose.model('response').findOne({_id: req.params.id}).exec(function (err, doc) {
       if (err) {
-        return res.sendStatus(500)
+        console.log(err)
+        return next(err)
       }
       //is file ID in there?
       if(doc.files[req.params.file]){
         res.setHeader('Content-Disposition', 'attachment; filename=' + doc.files[req.params.file])
-        downloadFromS3('/uploads/' + doc.files[req.params.file]).pipe(res)
+        downloadFromS3('uploads/' + doc.files[req.params.file]).pipe(res)
       } else {
         return next(new Error('file doesn\'t exist'))
       }

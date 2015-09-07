@@ -1,6 +1,7 @@
-var app = require('../app'),
-	request = require('supertest'),
-	server;
+var app = require('../app')
+var	request = require('supertest')
+var async = require('async')
+var	server
 
 describe('Front-end',function(){
   var rAgent;
@@ -53,7 +54,8 @@ describe('App API',function(){
 		//Load image from file
 		rAgent
 			.post('/response')
-		    .attach('image', __dirname + '/data/example.jpg', 'photo.jpg')
+		    .attach('image1', __dirname + '/data/example.jpg', 'photo1.jpg')
+		    .attach('image2', __dirname + '/data/example.jpg', 'photo2.jpg')
 			.send({
 			nonce: '4',
 			data: {'one':'two'}
@@ -85,14 +87,9 @@ describe('App API',function(){
 		rAgent
 			.post('/response')
 			.send({
-				age: '0-18',
-				knowarea: 'Very well',
-				heading: '121.3',
+				data: '0-18',
+				files: '121.3',
 				nonce: nonce,
-				words: 'ca, ba, aa',
-				comments: 'cat',
-				lng: '11',
-				lat: '11'
 			})
 			.expect(function(res){
 				return res.body.id !== responseId;//Works in reverse. True means error, false means pass
@@ -110,43 +107,60 @@ describe('Back-end',function(){
 	var adminEmail = 'example@test.test'
 	var adminPassword = 'something'
 	var responseId
+	var responseIdWithFiles
 
 	before(function(done){
+		this.timeout(30000)
 		server = app.listen(process.env.PORT, function(){
 			rAgent = request.agent(app);
 			//Remove example user if found
 			var mongoose = require('mongoose');
 			var User = mongoose.model('user');
 
-			User.remove({'email': adminEmail}, function(e){})
-
-			var user = new User({
-				    email: adminEmail,
-				    password: 'something',
-				    salt: adminEmail,
-				    fullname: 'Test user',
-				    phoneno: '594930305838203'
-			})
-
-			var Response = mongoose.model('response');
-			var response = new Response({
-					nonce: "11223344",
-					data: {'one':'one','two':'two'}
-			})
-			try{
-				user.save(function(e){
-						if(e) done(e)
-						response.save(function(e,d){
-							if(e) done(e)
-							responseId = d.id;
-							done()
+			async.parallel([
+				function(cback){
+					User.remove({'email': adminEmail}, function(e){
+						var user = new User({
+						    email: adminEmail,
+						    password: 'something',
+						    salt: adminEmail,
+						    fullname: 'Test user',
+						    phoneno: '594930305838203'
 						})
-					}
-				)
+						user.save(cback)
+					})
+				},
+				function(cback){
+					rAgent
+						.post('/response')
+					    .attach('image1', __dirname + '/data/example.jpg', 'photo1.jpg')
+					    .attach('image2', __dirname + '/data/example.jpg', 'photo2.jpg')
+						.send({
+							data: {'one':'two'}
+						})
+						.end(function(err,res){
+							var resp = JSON.parse(res.res.text)
+							resp.id;
+							responseIdWithFiles = resp.id
+							cback(err)
+						});
+				},
+				function(cback){
+					var Response = mongoose.model('response');
+					var response = new Response({
+							nonce: "11223344",
+							data: {'one':'one','two':'two'}
+					})
+					response.save(function(e,d){
+						if(e) return cback(e)
+						responseId = d.id;
+						cback()
+					})
 
-			} catch(e){
-				done(e)
-			}
+				}
+				], function(e, d){
+					done(e)
+				})
 		});
 	});
 
@@ -290,6 +304,22 @@ describe('Back-end',function(){
 		  .expect(200, done)
 	});
 
+	it('GET /admin/responses/x/download/file/0 should return files',function(done){
+		this.timeout(30000)
+		rAgent
+			.get('/admin/responses/' + responseIdWithFiles + '/download/file/0')
+			//.expect('');//Check it has a filename
+			.expect(200,done);
+	});
+
+	it('GET /admin/responses/download/files/[] should return files',function(done){
+		this.timeout(30000)
+		rAgent
+			.get('/admin/responses/download/files/["' + responseIdWithFiles + '"]')
+			//.expect('');//Check it has a filename
+			.expect(200,done);
+	});
+
 	it('GET /admin/responses/x/delete should delete response',function(done){
 		//Find response ID.
 		rAgent
@@ -314,64 +344,4 @@ describe('Back-end',function(){
 	after(function() {
 		server.close();
 	});
-});
-
-
-
-describe('Downloads',function(){
-	var mongoose = require('mongoose');
-	var responseModel = mongoose.model('response');
-
-	var rAgent;
-	var responseId;
-	before(function(done){
-		server = app.listen(process.env.PORT, function(){
-			//Create sample view
-			require('../models/Response.js');			//Include (view)
-			var responseObj = {
-				nonce: '9876543rtyhjhgf',
-				data: {'one':'one','two':'two'}
-			}
-			var response = new responseModel(responseObj);
-			response.save(function (err, obj) {
-				if(err){throw err}
-				//get ID of view
-				responseId = obj._id;
-
-				rAgent = request.agent(app);
-				//Login using the rAgent
-				rAgent
-				  .post('/admin/login')
-				  .send({username: 'glastohacks@gmail.com', password: 'glastonbury'})
-				  .expect(302)
-				  .end(done);
-			});
-			
-		});
-	});
-
-	it('GET /admin/responses/x/download/files should return files',function(done){
-		this.timeout(30000)
-		rAgent
-			.get('/admin/responses/' + responseId + '/download/files')
-			//.expect('');//Check it has a filename
-			.expect(200,done);
-	});
-
-	it('GET /admin/responses/download/files/[] should return files',function(done){
-		this.timeout(30000)
-		rAgent
-			.get('/admin/responses/download/files/["' + responseId + '"]')
-			//.expect('');//Check it has a filename
-			.expect(200,done);
-	});
-
-	after(function(done) {
-		//Delete view
-		responseModel.remove({_id: responseId}, function(err,result){
-			server.close();
-			done();
-		});
-	});
-
 });
