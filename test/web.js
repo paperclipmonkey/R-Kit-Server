@@ -94,6 +94,7 @@ describe('Back-end',function(){
 	var rAgent;
 	var adminEmail = 'example@test.test'
 	var adminPassword = 'something'
+	var responseId
 
 	before(function(done){
 		server = app.listen(process.env.PORT, function(){
@@ -108,11 +109,19 @@ describe('Back-end',function(){
 				    fullname: 'Test user',
 				    phoneno: '594930305838203'
 			})
+
+			var Response = mongoose.model('response');
+			var response = new Response({
+					nonce: "11223344",
+					data: {'one':'one','two':'two'}
+			})
 			try{
 				user.save()
+				response.save(function(e,d){
+					responseId = d.id;
+				})
 			} catch(e){}
-			done()
-			//Create example user
+				done()
 		});
 	});
 
@@ -171,18 +180,6 @@ describe('Back-end',function(){
 	  .expect(200, done);
 	});
 
-	it('GET /admin/dash/responses/latest should show latest responses',function(done){
-	rAgent
-	  .get('/admin/dash/responses/latest')
-	  .expect(200, done);
-	});
-
-	// it('GET /admin/dash/responses/words should show latest words',function(done){
-	//   rAgent
-	//     .get('/admin/dash/responses/words')
-	//     .expect(200, done);
-	// });
-
 	/* - - - - Users - - - - - */
 
 	it('GET /admin/users should show users',function(done){
@@ -201,44 +198,85 @@ describe('Back-end',function(){
 	var userAdr;
 
 	it('POST /admin/users/new/ should add new user',function(done){
-	rAgent
-	  .post('/admin/users/new/')
-	  .send({
-		fullname: 'test',
-		//image: 'glastonbury',
-		email: 'test@test.com',
-		organisation: 'Test',
-		phoneno: '01792',
-		password: 'test'
-	  })
-	  .expect(302)
-	  .end(function(err, res){
-		userAdr = res.header.location;
-		done();
-	  });
+		rAgent
+		  .post('/admin/users/new/')
+		  .send({
+			fullname: 'test',
+			email: 'test@test.com',
+			organisation: 'Test',
+			phoneno: '01792',
+			password: 'test'
+		  })
+		  .expect(302)
+		  .end(function(err, res){
+			userAdr = res.header.location;
+			done();
+		  });
 	});
 
 	it('GET /admin/users/x should show user',function(done){
-	rAgent
-	  .get(userAdr)
-	  .expect(200)
-	  .expect(/\btest\b/, done);
+		rAgent
+		  .get(userAdr)
+		  .expect(200)
+		  .expect(/\btest\b/, done);
 	});
 
 	it('DELETE /admin/users/x should delete new user',function(done){
-	rAgent
-	  .get(userAdr + '/delete')
-	  .expect(302)
-	  .expect(/^((?!test).)*$/, done);
+		rAgent
+		  .get(userAdr + '/delete')
+		  .expect(302)
+		  .expect(/^((?!test).)*$/, done);
 	});
 
 	/* - - - - - Responses - - - - - - */
 
 	it('GET /admin/responses should show responses',function(done){
+		rAgent
+		  .get('/admin/responses/')
+		  .expect(200)
+		  .expect(/\bLocation\b/, done);
+	});
+
+	it('GET /admin/responses-datatables should show responses in datatables format',function(done){
+		rAgent
+		  .get('/admin/responses-datatables/')
+		  .expect(200)
+		  .expect(/\aaData\b/, done);
+	});
+
+	it('GET /admin/responses/x should show response in editable format',function(done){
+		//Find response ID.
+		rAgent
+		  .get('/admin/responses/' + responseId)
+		  .expect(200)
+		  .expect(/\aone\b/, done);
+	});
+
+	it('POST /admin/responses/x should show edit response',function(done){
+		//Find response ID.
+		rAgent
+		  .post('/admin/responses/' + responseId)
+		  .expect(302)
+		  .expect(/\aone\b/, done);
+	});
+
+	it('GET /admin/responses/x/delete should delete response',function(done){
+		//Find response ID.
+		rAgent
+		  .get('/admin/responses/' + responseId + '/delete')
+		  .expect(302, done)
+	});
+
+	it('GET /admin should redirect to login when logging out',function(done){
+		rAgent
+		  .get('/admin/logout')
+		  .expect(302,done);
+	});
+
+	it('GET /admin should redirect to login after logging out',function(done){
 	rAgent
-	  .get('/admin/responses/')
-	  .expect(200)
-	  .expect(/\bLocation\b/, done);
+	  .get('/admin/')
+	  .expect(302,done);
 	});
 
 	var viewAdr;
