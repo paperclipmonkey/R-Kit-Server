@@ -1,2 +1,5 @@
 language: node_js
 node_js: "stable"
+addons:
+    code_climate:
+        repo_token: abc2f0486c68e984d2139d8a1ad53ae660a538f8f4478917d768269072b42626
