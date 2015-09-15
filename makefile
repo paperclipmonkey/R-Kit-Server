@@ -9,5 +9,8 @@ test-w:
 		--reporter $(REPORTER) \
 		--growl \
 		--watch
-		
+
+docs:
+	@NODE_ENV=test groc	
+
 .PHONY: test test-w
