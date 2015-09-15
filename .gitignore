@@ -1,0 +1,19 @@
+/out.log
+public/assets/uploads/*
+public/assets/uploads/
+*.DS_Store
+/report/
+/public/mocha.html
+/node_modules/
+/RmV.sublime-project
+/RmV.sublime-workspace
+# Dependency directory
+# https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
+node_modules
+.env
+.env.test
+/npm-debug.log
+
+/coverage/
+
+/doc/

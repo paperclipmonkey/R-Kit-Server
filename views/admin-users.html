@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="en"><head><title>views/admin-users</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="views/admin-users"><meta name="groc-project-path" content="views/admin-users.html"><meta name="groc-github-url" content="https://github.com/paperclipmonkey/R-Kit-Server"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/paperclipmonkey/R-Kit-Server/blob/master/views/admin-users.html">views/admin-users.html</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>{{&gt; head}}<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container-fluid"</span>&gt;</span>
+			{{&gt; menuside}}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Right (content) side </p></div></div><div class="code"><div class="wrapper">			<span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"content-block"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"main"</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>
+						Users
+					<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-title">h4</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"pull-right"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/admin/users/new/"</span>&gt;</span>Add<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">h4</span>&gt;</span>
+					<span class="hljs-tag">&lt;<span class="hljs-title">table</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"table table-bordered table-striped"</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-title">thead</span>&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-title">tr</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>Full name<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>Email<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>Last logged in<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>View<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+							<span class="hljs-tag">&lt;/<span class="hljs-title">tr</span>&gt;</span>
+						<span class="hljs-tag">&lt;/<span class="hljs-title">thead</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-title">tbody</span>&gt;</span>
+							{{#users}}
+							<span class="hljs-tag">&lt;<span class="hljs-title">tr</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span>{{fullname}}<span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span>{{email}}<span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span>{{lastLogin}}<span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"align-center"</span>&gt;</span>
+									<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/admin/users/{{_id}}"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"view-link"</span>&gt;</span>View<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+								<span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">td</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"align-center"</span>&gt;</span>
+									<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/admin/users/{{_id}}/delete"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"delete-link"</span>&gt;</span>Delete<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+								<span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+							<span class="hljs-tag">&lt;/<span class="hljs-title">tr</span>&gt;</span>
+							{{/users}}
+						<span class="hljs-tag">&lt;/<span class="hljs-title">tbody</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-title">table</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+			<span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+		{{&gt; script}}
+	<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></div></div></div></div></body></html>

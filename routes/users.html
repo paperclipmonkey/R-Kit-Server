@@ -1,0 +1,88 @@
+<!DOCTYPE html><html lang="en"><head><title>routes/users</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="routes/users"><meta name="groc-project-path" content="routes/users.js"><meta name="groc-github-url" content="https://github.com/paperclipmonkey/R-Kit-Server"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/paperclipmonkey/R-Kit-Server/blob/master/routes/users.js">routes/users.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>)
+<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">async</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async'</span>)
+<span class="hljs-keyword">var</span> common = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../common'</span>)
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
+
+  <span class="hljs-keyword">var</span> users_list = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>TODO Remove Async</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">async</span>.parallel({
+      users: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
+        mongoose.model(<span class="hljs-string">'user'</span>).find({}).skip(<span class="hljs-number">0</span>).limit(<span class="hljs-number">1000</span>).exec(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, docs</span>) </span>{
+          callback(err, docs)
+        })
+      }
+    },
+      <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
+        <span class="hljs-keyword">if</span> (err) {
+          <span class="hljs-keyword">return</span> next(err)
+        }
+        res.render(<span class="hljs-string">'views/admin-users.html'</span>, {
+          user: req.user,
+          users: results.users,
+          pageUsers: <span class="hljs-literal">true</span>
+        })
+      })
+  }
+
+  <span class="hljs-keyword">var</span> users_edit = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+    <span class="hljs-keyword">var</span> UserModel = mongoose.model(<span class="hljs-string">'user'</span>)</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>TODO - clean us name checking, use variable</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">async</span>.parallel({
+      user: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) </span>{
+        <span class="hljs-keyword">if</span> (req.method === <span class="hljs-string">'POST'</span>) {
+          <span class="hljs-keyword">if</span> (req.params.id === <span class="hljs-string">'new'</span>) {</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>TODO - ia k variable needed, or is it accessible using &#39;this&#39;?</p></div></div><div class="code"><div class="wrapper">            <span class="hljs-keyword">var</span> k = <span class="hljs-keyword">new</span> UserModel(req.body)
+            k.save(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{
+              <span class="hljs-keyword">if</span> (err) {
+                <span class="hljs-keyword">return</span> next(err)
+              }
+              <span class="hljs-keyword">return</span> res.redirect(<span class="hljs-string">'/admin/users/'</span> + k._id)
+            })
+          } <span class="hljs-keyword">else</span> {
+            mongoose.model(<span class="hljs-string">'user'</span>).findOne({_id: req.params.id}, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, doc</span>) </span>{
+              <span class="hljs-keyword">if</span> (err) {
+                callback(err, [doc])
+              }
+              <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> req.body.fullname === <span class="hljs-string">'string'</span> &amp;&amp; req.body.emailOnResponse === <span class="hljs-literal">undefined</span>) {
+                req.body.emailOnResponse = <span class="hljs-literal">false</span>
+              }
+              doc.set(req.body)
+              doc.save()
+              callback(err, [doc])
+            })
+          }
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (req.params.id !== <span class="hljs-string">'new'</span>) {
+          mongoose.model(<span class="hljs-string">'user'</span>).findOne({_id: req.params.id}).exec(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, docs</span>) </span>{
+            callback(err, [docs])
+          })
+        } <span class="hljs-keyword">else</span> { <span class="hljs-comment">// new user - Create model</span>
+          callback(<span class="hljs-literal">null</span>, [<span class="hljs-keyword">new</span> UserModel()])
+        }
+      }
+    },
+      <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
+        <span class="hljs-keyword">if</span> (err) {
+          <span class="hljs-keyword">return</span> res.status(<span class="hljs-number">404</span>).send(err)
+        }
+    
+        res.render(<span class="hljs-string">'views/admin-user.html'</span>, {
+          user: req.user,
+          useredit: results.user,
+          pageUsers: <span class="hljs-literal">true</span>
+        })
+      })
+  }
+
+  <span class="hljs-keyword">var</span> users_delete = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+    mongoose.model(<span class="hljs-string">'user'</span>).findByIdAndRemove(req.params.id, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, docs</span>) </span>{
+      <span class="hljs-keyword">if</span> (err) {
+        <span class="hljs-keyword">return</span> next(err)
+      }
+      res.redirect(<span class="hljs-string">'/admin/users'</span>)
+    })
+  }
+
+  <span class="hljs-keyword">return</span> {
+    users_list: users_list,
+    users_edit: users_edit,
+    users_delete: users_delete,
+  }
+
+}</div></div></div></div></body></html>

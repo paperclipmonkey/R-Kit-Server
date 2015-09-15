@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang="en"><head><title>views/admin-responses</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="views/admin-responses"><meta name="groc-project-path" content="views/admin-responses.html"><meta name="groc-github-url" content="https://github.com/paperclipmonkey/R-Kit-Server"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/paperclipmonkey/R-Kit-Server/blob/master/views/admin-responses.html">views/admin-responses.html</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-tag">&lt;<span class="hljs-title">html</span> <span class="hljs-attribute">lang</span>=<span class="hljs-value">"en"</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span>
+		{{&gt; head}}
+
+		<span class="hljs-comment">&lt;!--data tables --&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"/js/plugins/dataTables/jquery.datatables.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+		</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Date range picker Styles </p></div></div><div class="code"><div class="wrapper">		<span class="hljs-tag">&lt;<span class="hljs-title">link</span> <span class="hljs-attribute">rel</span>=<span class="hljs-value">'stylesheet'</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">'text/css'</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">'/css/plugins/daterangepicker.css'</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"container-fluid"</span>&gt;</span>
+			{{&gt; menuside}}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Right (content) side </p></div></div><div class="code"><div class="wrapper">			<span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"content-block"</span> <span class="hljs-attribute">role</span>=<span class="hljs-value">"main"</span>&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Data block </p></div></div><div class="code"><div class="wrapper">					<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+
+					<span class="hljs-tag">&lt;<span class="hljs-title">article</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"data-block"</span>&gt;</span>
+						<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"data-container"</span>&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-title">header</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">span</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"pull-right"</span>&gt;</span>
+									<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"data-header-actions"</span>&gt;</span>
+										<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+											<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">data-toggle</span>=<span class="hljs-value">"dropdown"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"btn dropdown-toggle"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"fa fa-fw fa-cloud-download"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span>Download<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+
+											<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"dropdown-menu datatable-controls"</span>&gt;</span>
+												<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/admin/responses/download/kmz/"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"downloadbtn"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"fa fa-fw fa-map-marker"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span>Google Earth<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+												<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+												<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/admin/responses/download/images/"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"downloadbtn"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"fa fa-fw fa-photo"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span>Images<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+												<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+												<span class="hljs-tag">&lt;<span class="hljs-title">li</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"/admin/responses/download/csv/"</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"downloadbtn"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"fa fa-fw fa-list-ol"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span>Excel Spreadsheet<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
+												<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+											<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+										<span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+									<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+								<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>Responses<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
+								<span class="hljs-tag">&lt;<span class="hljs-title">form</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"form-inline views-filter"</span>&gt;</span>
+
+									<span class="hljs-tag">&lt;<span class="hljs-title">input</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text"</span> <span class="hljs-attribute">placeholder</span>=<span class="hljs-value">"Search"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"myInputTextField"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">input</span>&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><div class="input-prepend">
+//Turned off as dates in the last month don&#39;t work?
+<span class="add-on">
+<i class="icon-calendar"></i>
+</span>
+<input class="input-medium" type="text" placeholder="Date" name="daterangePicker" id="daterangePicker"/>
+</div> </div></div><div class="code"><div class="wrapper">								<span class="hljs-tag">&lt;/<span class="hljs-title">form</span>&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>/Data block </p></div></div><div class="code"><div class="wrapper">								<span class="hljs-tag">&lt;<span class="hljs-title">ul</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"data-header-actions tabs nav nav-tabs"</span>&gt;</span>
+									<span class="hljs-tag">&lt;<span class="hljs-title">li</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"active"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">data-toggle</span>=<span class="hljs-value">"tab"</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#one"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">i</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"fa fa-fw fa-list-ul"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">i</span>&gt;</span>List<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">li</span>&gt;</span>
+								<span class="hljs-tag">&lt;/<span class="hljs-title">ul</span>&gt;</span>
+							<span class="hljs-tag">&lt;/<span class="hljs-title">header</span>&gt;</span>
+							<span class="hljs-tag">&lt;<span class="hljs-title">section</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab-content"</span>&gt;</span>
+							</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Tab #one </p></div></div><div class="code"><div class="wrapper">								<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"tab-pane active"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"one"</span>&gt;</span>
+									<span class="hljs-tag">&lt;<span class="hljs-title">section</span>&gt;</span>
+										<span class="hljs-tag">&lt;<span class="hljs-title">table</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"datatable table table-striped table-bordered table-hover"</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"responses-tables"</span>&gt;</span>
+											<span class="hljs-tag">&lt;<span class="hljs-title">thead</span>&gt;</span>
+												<span class="hljs-tag">&lt;<span class="hljs-title">tr</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>ID<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>Date<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>data<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">th</span>&gt;</span>files<span class="hljs-tag">&lt;/<span class="hljs-title">th</span>&gt;</span>
+												<span class="hljs-tag">&lt;/<span class="hljs-title">tr</span>&gt;</span>
+											<span class="hljs-tag">&lt;/<span class="hljs-title">thead</span>&gt;</span>
+											<span class="hljs-tag">&lt;<span class="hljs-title">tbody</span>&gt;</span>
+												<span class="hljs-tag">&lt;<span class="hljs-title">tr</span> <span class="hljs-attribute">class</span>=<span class="hljs-value">"odd gradeX"</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+													<span class="hljs-tag">&lt;<span class="hljs-title">td</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">td</span>&gt;</span>
+												<span class="hljs-tag">&lt;/<span class="hljs-title">tr</span>&gt;</span>
+											<span class="hljs-tag">&lt;/<span class="hljs-title">tbody</span>&gt;</span>
+										<span class="hljs-tag">&lt;/<span class="hljs-title">table</span>&gt;</span>
+									<span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+								<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>/Tab #one </p></div></div><div class="code"><div class="wrapper">							<span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+						<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+					<span class="hljs-tag">&lt;/<span class="hljs-title">article</span>&gt;</span>
+				<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>/Data block </p></div></div><div class="code"><div class="wrapper">				<span class="hljs-tag">&lt;/<span class="hljs-title">section</span>&gt;</span>
+		<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+		{{&gt; script}}</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Date range picker </p></div></div><div class="code"><div class="wrapper">		<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"/js/plugins/dateRangePicker/date.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"/js/plugins/dateRangePicker/daterangepicker.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+		<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">'/js/plugins/dateRangePicker/moment.min.js'</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span> <span class="hljs-attribute">src</span>=<span class="hljs-value">"/js/admin-views.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+
+		<span class="hljs-tag">&lt;<span class="hljs-title">script</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"text/javascript"</span>&gt;</span><span class="javascript">
+			$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+				
+				$(<span class="hljs-string">'#daterangePicker'</span>).daterangepicker(
+					{
+						ranges: {
+							<span class="hljs-string">'Today'</span>: [moment(), moment()],
+							<span class="hljs-string">'Yesterday'</span>: [moment().subtract(<span class="hljs-string">'days'</span>, <span class="hljs-number">1</span>), moment().subtract(<span class="hljs-string">'days'</span>, <span class="hljs-number">1</span>)],
+							<span class="hljs-string">'Last 7 Days'</span>: [moment().subtract(<span class="hljs-string">'days'</span>, <span class="hljs-number">6</span>), moment()],
+							<span class="hljs-string">'Last 30 Days'</span>: [moment().subtract(<span class="hljs-string">'days'</span>, <span class="hljs-number">29</span>), moment()],
+							<span class="hljs-string">'This Month'</span>: [moment().startOf(<span class="hljs-string">'month'</span>), moment().endOf(<span class="hljs-string">'month'</span>)],
+							<span class="hljs-string">'Last Month'</span>: [moment().subtract(<span class="hljs-string">'month'</span>, <span class="hljs-number">1</span>).startOf(<span class="hljs-string">'month'</span>), moment().subtract(<span class="hljs-string">'month'</span>, <span class="hljs-number">1</span>).endOf(<span class="hljs-string">'month'</span>)]
+						},
+						startDate: moment().subtract(<span class="hljs-string">'days'</span>, <span class="hljs-number">29</span>),
+						endDate: moment()
+					},
+					<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">start, end</span>) </span>{
+						$(<span class="hljs-string">'#reportrange span'</span>).html(start.format(<span class="hljs-string">'MMMM D, YYYY'</span>) + <span class="hljs-string">' - '</span> + end.format(<span class="hljs-string">'MMMM D, YYYY'</span>));
+						<span class="hljs-built_in">window</span>.iMin = start;
+						<span class="hljs-built_in">window</span>.iMax = end;
+						<span class="hljs-built_in">window</span>.oTable.fnDraw();
+						initialiseMap();
+					}
+				);
+				$(<span class="hljs-string">'.downloadbtn'</span>).click(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+					<span class="hljs-keyword">var</span> markers = oTable._(<span class="hljs-string">'tr'</span>, {<span class="hljs-string">"filter"</span>:<span class="hljs-string">"applied"</span>});
+					<span class="hljs-keyword">var</span> arr = [];
+					<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; markers.length; i++) {
+						arr.push(markers[i][<span class="hljs-number">0</span>]);
+					};
+					<span class="hljs-keyword">var</span> str = <span class="hljs-built_in">JSON</span>.stringify(arr);
+					<span class="hljs-built_in">window</span>.location.href = $(<span class="hljs-keyword">this</span>).attr(<span class="hljs-string">'href'</span>) + str;
+					e.preventDefault();
+					<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+				});
+			});
+		</span><span class="hljs-tag">&lt;/<span class="hljs-title">script</span>&gt;</span>
+	<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span></div></div></div></div></body></html>
