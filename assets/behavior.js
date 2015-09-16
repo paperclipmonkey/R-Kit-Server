@@ -40,9 +40,57 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "app.js",
         "targetPath": "app",
         "pageTitle": "app",
-        "title": "app"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "App",
+            "slug": "app",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Wire the application together",
+                "slug": "wire-the-application-together"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Wire up the urls to middleware and routes",
+                "slug": "wire-up-the-urls-to-middleware-and-routes"
+              },
+              "depth": 3
+            }
+          ]
+        },
+        "title": "App"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Wire the application together",
+            "slug": "wire-the-application-together"
+          },
+          "depth": 3
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 3,
+            "title": "Wire up the urls to middleware and routes",
+            "slug": "wire-up-the-urls-to-middleware-and-routes"
+          },
+          "depth": 3
+        }
+      ]
     }, {
       "type": "file",
       "data": {
