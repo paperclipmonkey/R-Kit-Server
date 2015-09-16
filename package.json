@@ -44,7 +44,8 @@
   "devDependencies": {
     "istanbul": "^0.3.19",
     "mocha-standard": "1.0.0",
-    "standard": "5.1.0"
+    "standard": "5.1.0",
+    "groc": "0.8"
   },
   "bundledDependencies": [],
   "license": "MIT",

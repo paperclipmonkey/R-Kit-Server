@@ -1,4 +1,4 @@
 {
   "exclude": ["node_modules/**"],
-  "glob": ["{models,routes,tests,views}/**/*.*", "*.js"]
+  "glob": ["{models,routes,test,views}/**/*.*", "*.js"]
 }
