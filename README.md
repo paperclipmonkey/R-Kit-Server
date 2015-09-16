@@ -1,7 +1,11 @@
-# Research Kit Server
-Server for Research Kit
+# R-Kit Server
+Welcome to R-Kit server, the new way of conducting research studies.
 
-Allows users to upload completed research studies
+R-kit is a mobile app SDK and node.js application designed to help researchers build android-based research studies quickly and easily.
+
+Data collected by the mobile application can be collected and stored using this server, or any other server capable of storing incoming POST data.
+
+The platform has been designed to be easily extendable, for example to add additional data-processing functionality, or can act as a reference platform to create your own server.
 
 [![Build Status](https://api.travis-ci.com/paperclipmonkey/R-Kit.svg?token=SsrjjdmEtzcJsGDqjxQw&branch=master)](https://travis-ci.com/paperclipmonkey/R-Kit/)
 
