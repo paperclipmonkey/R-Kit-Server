@@ -1,3 +1,8 @@
+/*
+#response.js
+Test the response object using unit testing methodology
+*/
+
 var should = require('should'),
 	fs = require('fs'),
 	mongoose = require('mongoose');
@@ -22,6 +27,9 @@ describe('Response',function(){
     ts: {type: Date, 'default': Date.now},
 	*/
 
+	/*
+	Build a response object
+	*/
 	before(function(done){
 		response = new Response({
 			nonce: 'uniqueoneoffstring',
@@ -30,6 +38,9 @@ describe('Response',function(){
 		done();
 	});
 
+	/*
+	Check all required params are present
+	*/
 	it('should have a nonce',function(){
 		response.should.have.property('nonce','uniqueoneoffstring');
 	});
@@ -38,10 +49,16 @@ describe('Response',function(){
 		response.should.have.property('data');
 	});
 
+	/*
+	Make sure we can save it
+	*/
 	it('should be saveable',function(done){
 		response.save(done);
 	});
 
+	/*
+	Make sure we can delete it
+	*/
 	it('should be deleteable',function(done){
 		response.remove(done);
 	});

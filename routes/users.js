@@ -1,3 +1,7 @@
+/*
+#users
+*/
+
 var mongoose = require('mongoose')
 var fs = require('fs')
 var async = require('async')
@@ -5,6 +9,9 @@ var common = require('../common')
 
 module.exports = function (app) {
 
+  /*
+  ##List users
+  */
   var users_list = function (req, res, next) {
     // TODO Remove Async
     async.parallel({
@@ -26,6 +33,9 @@ module.exports = function (app) {
       })
   }
 
+  /*
+  ##Edit a user
+  */
   var users_edit = function (req, res, next) {
     var UserModel = mongoose.model('user')
     // TODO - clean us name checking, use variable
@@ -76,6 +86,9 @@ module.exports = function (app) {
       })
   }
 
+  /*
+  ##Delete a user
+  */
   var users_delete = function (req, res, next) {
     mongoose.model('user').findByIdAndRemove(req.params.id, function (err, docs) {
       if (err) {

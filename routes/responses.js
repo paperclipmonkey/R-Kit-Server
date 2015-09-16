@@ -1,9 +1,17 @@
+/*
+#responses
+*/
+
 var mongoose = require('mongoose')
 var escape = require('escape-html')
 var common = require('../common')
 var async = require('async')
 
 module.exports = function (app) {
+  /*
+  ##New response
+  Save uploaded response to the Database
+  */
   var create = function (req, res, next) {
     var toInsert = req.body
 
@@ -24,6 +32,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##List
+  Render the view for the user
+  */
   var admin_list = function (req, res) {
     res.render('views/admin-responses.html', {
       user: req.user,
@@ -31,6 +43,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##List (Data)
+  List the responses in a JSON format edible by the frontend
+  */
   var datatables = function (req, res, next) {
     // TODO Grab all areas associated with the user
     // TODO - Use new function to get all geo polygons
@@ -49,6 +65,12 @@ module.exports = function (app) {
     mongoose.model('response').find({}, cback)
   }
 
+
+  /*
+  ##Delete
+  Remove a response from the database.
+  Doesn't remove uploaded files as well
+  */
   var remove = function (req, res, next) {
     mongoose.model('response').findByIdAndRemove(req.params.id, function (err, doc) {
       if (err) return next(err)
@@ -56,6 +78,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##Update
+  Update a response in the database
+  */
   var update = function (req, res, next) {
     // TODO - remove async
     async.parallel({

@@ -1,8 +1,14 @@
+/*
+#web
+Test all of the web endpoints
+*/
+
 var app = require('../app')
 var	request = require('supertest')
 var async = require('async')
 var	server
 
+// ##front-end tests
 describe('Front-end',function(){
   var rAgent;
   before(function(done){
@@ -12,6 +18,7 @@ describe('Front-end',function(){
 	});
   });
 
+  // ####Check default URL
   it('GET / should return 200',function(done){
 	rAgent
 		.get('/')
@@ -24,6 +31,7 @@ describe('Front-end',function(){
 
 });
 
+// ##API tests
 describe('App API',function(){
 	var rAgentba
 	var nonce
@@ -37,6 +45,7 @@ describe('App API',function(){
 		});
 	});
 
+  	// ####Check upload without file
 	it('POST /response without file return 200',function(done){
 		this.timeout(10000)
 		//Load image from file
@@ -49,6 +58,7 @@ describe('App API',function(){
 		.expect(200,done);
 	});
 
+	// ####Check upload with file
 	it('POST /response with file return 200',function(done){
 		this.timeout(10000)
 		//Load image from file
@@ -64,7 +74,7 @@ describe('App API',function(){
 	});
 
 
-
+	// ####Check upload with nonce
 	it('POST /response with nonce should return 200',function(done){
 		this.timeout(10000)
 		//Load image from file
@@ -82,6 +92,7 @@ describe('App API',function(){
 			});
 	});
 
+	// ####Check upload with nonce returns same
 	it('POST /response with nonce should return same ID',function(done){
 		//Load image from file
 		rAgent
@@ -96,12 +107,14 @@ describe('App API',function(){
 			}).end(done);
 	});
 
+	// ####Cleanup
 	after(function() {
 		server.close();
 	});
 
 });
 
+// ##back-end tests
 describe('Back-end',function(){
 	var rAgent;
 	var adminEmail = 'example@test.test'
@@ -109,6 +122,7 @@ describe('Back-end',function(){
 	var responseId
 	var responseIdWithFiles
 
+	// ####Before
 	before(function(done){
 		this.timeout(30000)
 		server = app.listen(process.env.PORT, function(){
@@ -164,18 +178,21 @@ describe('Back-end',function(){
 		});
 	});
 
+	// ####When not logged in check
 	it('GET /admin should redirect to login',function(done){
 	rAgent
 	  .get('/admin/')
 	  .expect(302,done);
 	});
 
+	// ####Check login page displays
 	it('GET /admin/login should give 200',function(done){
 	rAgent
 	  .get('/admin/login')
 	  .expect(200,done);
 	});
 
+	// ####Check login with bad credentials
 	it('POST /admin/login should not login',function(done){
 	rAgent
 	  .post('/admin/login')
@@ -184,6 +201,7 @@ describe('Back-end',function(){
 	  .expect('location', '/admin/login', done);
 	});
 
+	// ####Check login
 	it('POST /admin/login should login & set cookie',function(done){
 	rAgent
 	  .post('/admin/login')
@@ -192,8 +210,10 @@ describe('Back-end',function(){
 	  .expect('location', "/admin/", done);
 	});
 
-	/* - - - - Dashboard - - - - - */
+	// - - - - - - - - - - - - - - -
+	// ###Dashboard
 
+	// ####Check dashboard shows
 	it('GET /admin/ should show dashboard',function(done){
 	rAgent
 	  .get('/admin/')
@@ -201,32 +221,38 @@ describe('Back-end',function(){
 	  .expect(/\bdashboard\b/, done);
 	});
 
+	// ####Check dashboard week data
 	it('GET /admin/dash/responses/week should show total responses this week',function(done){
 	rAgent
 	  .get('/admin/dash/responses/week')
 	  .expect(200, done);
 	});
 
+	// ####Check dashboard months data
 	it('GET /admin/dash/responses/months should show total responses this month',function(done){
 	rAgent
 	  .get('/admin/dash/responses/months')
 	  .expect(200, done);
 	});
 
+	// ####Check dashboard total data
 	it('GET /admin/dash/responses/total should show total responses',function(done){
 	rAgent
 	  .get('/admin/dash/responses/total')
 	  .expect(200, done);
 	});
 
-	/* - - - - Users - - - - - */
+	// - - - - - - - - - - - - - - -
+	// ###Users
 
+	// ####Check showing users
 	it('GET /admin/users should show users',function(done){
 	rAgent
 	  .get('/admin/users/')
 	  .expect(/\bEmail\b/, done);
 	});
 
+	// ####Check creating new user form
 	it('GET /admin/users/new/ should show form',function(done){
 	rAgent
 	  .get('/admin/users/new/')
@@ -236,6 +262,7 @@ describe('Back-end',function(){
 
 	var userAdr;
 
+	// ####Check creating new user
 	it('POST /admin/users/new/ should add new user',function(done){
 		rAgent
 		  .post('/admin/users/new/')
@@ -253,6 +280,7 @@ describe('Back-end',function(){
 		  });
 	});
 
+	// ####Check show user
 	it('GET /admin/users/x should show user',function(done){
 		rAgent
 		  .get(userAdr)
@@ -260,6 +288,7 @@ describe('Back-end',function(){
 		  .expect(/\btest\b/, done);
 	});
 
+	// ####Check edit user
 	it('POST /admin/users/x should edit user',function(done){
 		rAgent
 		  .post(userAdr)
@@ -267,6 +296,7 @@ describe('Back-end',function(){
 		  .expect(/\btest\b/, done);
 	});
 
+	// ####Check delete user
 	it('DELETE /admin/users/x should delete new user',function(done){
 		rAgent
 		  .get(userAdr + '/delete')
@@ -274,8 +304,11 @@ describe('Back-end',function(){
 		  .expect(/^((?!test).)*$/, done);
 	});
 
-	/* - - - - - Responses - - - - - - */
 
+	// - - - - - - - - - - - - - - -
+	// ###Responses
+
+	// ####Check responses page render
 	it('GET /admin/responses should show responses',function(done){
 		rAgent
 		  .get('/admin/responses/')
@@ -283,6 +316,7 @@ describe('Back-end',function(){
 		  .expect(/\bR-kit\b/, done);
 	});
 
+	// ####Check responses datatables data
 	it('GET /admin/responses-datatables should show responses in datatables format',function(done){
 		rAgent
 		  .get('/admin/responses-datatables/')
@@ -290,6 +324,7 @@ describe('Back-end',function(){
 		  .expect(/\aaData\b/, done);
 	});
 
+	// ####Check response page render
 	it('GET /admin/responses/x should show response in editable format',function(done){
 		//Find response ID.
 		rAgent
@@ -297,6 +332,7 @@ describe('Back-end',function(){
 		  .expect(200, done)
 	});
 
+	// ####Check responses edit render
 	it('POST /admin/responses/x should show edit response',function(done){
 		//Find response ID.
 		rAgent
@@ -304,6 +340,7 @@ describe('Back-end',function(){
 		  .expect(200, done)
 	});
 
+	// ####Check responses download specific file
 	it('GET /admin/responses/x/download/file/0 should return files',function(done){
 		this.timeout(30000)
 		rAgent
@@ -312,6 +349,7 @@ describe('Back-end',function(){
 			.expect(200,done);
 	});
 
+	// ####Check responses download file array
 	it('GET /admin/responses/download/files/[] should return files',function(done){
 		this.timeout(30000)
 		rAgent
@@ -320,7 +358,7 @@ describe('Back-end',function(){
 			.expect(200,done);
 	});
 
-	//http://localhost:65317/admin/responses/download/csv/[%2255ed9fe96ee49fefa1e92240%22]
+	// ####Check responses download csv
 	it('GET /admin/responses/download/csv/[] should return csv spreadsheet',function(done){
 		this.timeout(30000)
 		rAgent
@@ -329,6 +367,7 @@ describe('Back-end',function(){
 			.expect(200,done);
 	});
 
+	// ####Check responses delete
 	it('GET /admin/responses/x/delete should delete response',function(done){
 		//Find response ID.
 		rAgent
@@ -336,12 +375,15 @@ describe('Back-end',function(){
 		  .expect(302, done)
 	});
 
+
+	// ####Check logout
 	it('GET /admin should redirect to login when logging out',function(done){
 		rAgent
 		  .get('/admin/logout')
 		  .expect(302,done);
 	});
 
+	// ####Check session trashed
 	it('GET /admin should redirect to login after logging out',function(done){
 	rAgent
 	  .get('/admin/')
@@ -350,6 +392,7 @@ describe('Back-end',function(){
 
 	var viewAdr;
 
+	// ####After cleanup
 	after(function() {
 		server.close();
 	});

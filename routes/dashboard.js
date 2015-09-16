@@ -1,9 +1,17 @@
+/*
+#Dashboard
+Functions and endpoints used on the dashboard page
+*/
+
 var mongoose = require('mongoose')
 var common = require('../common')
 
 require('date-utils')
 
 module.exports = function (app) {
+  /*
+  ##Renders the dashboard page
+  */
   var dashboard = function (req, res) {
     res.render('views/admin-dashboard.html', {
       user: req.user,
@@ -11,6 +19,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##Responses by month
+  Responds in JSON with number per month.
+  */
   var dashboard_responses_by_month = function (req, res, next) {
     var cback = function (err, results) {
       if (err) {
@@ -34,8 +46,7 @@ module.exports = function (app) {
       }
 
       var monthsAgo = new Date()
-      // Add in the additional months and data
-      for (i = 0; i <= 12; i++) {
+      for (i = 0; i <= 12; i++) { // Add in the additional months and data
         var name = monthsAgo.getMonth() + 1 + ''
 
         if (!altFormat[name]) {
@@ -79,6 +90,10 @@ module.exports = function (app) {
     doQuery(filterQ)
   }
 
+  /*
+  ##Responses total count
+  Responds with an integer
+  */
   var dashboard_responses_total = function (req, res, next) {
     var cback = function (err, results) {
       if (err) {
@@ -89,6 +104,10 @@ module.exports = function (app) {
     mongoose.model('response').count({}, cback)
   }
 
+  /*
+  ##Responses in the last week
+  Responds with an integer
+  */
   var dashboard_responses_week = function (req, res, next) {
     var cback = function (err, results) {
       if (err) {

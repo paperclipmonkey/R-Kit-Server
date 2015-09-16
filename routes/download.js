@@ -6,6 +6,11 @@ var request = require('request')
 var s3Client = require('../s3-client')
 
 module.exports = function (app) {
+  /*
+  ##Downloads a file from the S3 Data service
+  Responds with a byte stream
+  Works with an evented system based on top of the Node.js Stream API
+  */
   function downloadFromS3 (filename) {
     var s3Params = {
         Bucket: process.env.S3_BUCKET,
@@ -28,6 +33,11 @@ module.exports = function (app) {
     return downloader;
   }
 
+
+  /*
+  ##Responses downloaded as a CSV file
+  Without any file attachments
+  */
   var responses_download_csv = function (req, res, next) {
     var ids = req.params.ids
     ids = JSON.parse(ids)
@@ -51,6 +61,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##Download all documents for a given set of IDs
+  Responds with a zip file
+  */
   function download_docs (ids, done, res) {
     mongoose.model('response').find({_id: {$in: ids}}, function (err, docs) {
       if (err) {
@@ -61,6 +75,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##Add files to a zip file
+  Returns new zip file.
+  */
   function add_files (docs, zip) {
     var i = 0
     var f = 0
@@ -78,6 +96,11 @@ module.exports = function (app) {
     return zip
   }
 
+  /*
+  ##Download responses as a zip file
+  Downloads files from S3 and zips them up
+  Returns file over HTTP
+  */
   var responses_download_files = function (req, res) {
     var ids = req.params.ids
     ids = JSON.parse(ids)
@@ -94,6 +117,10 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##Download single file from S3
+  Responds with file
+  */
   var response_download_file = function (req, res, next) {
     mongoose.model('response').findOne({_id: req.params.id}).exec(function (err, doc) {
       if (err) {

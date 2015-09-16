@@ -1,4 +1,5 @@
-/* #Response DB Object
+/* 
+#Response model
 Model file for a response from a research participant
 
 Saves their response as a JSON object in the MongoDB database

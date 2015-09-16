@@ -1,3 +1,9 @@
+/*
+#Authenticate
+Login / Logout commands
+Works closely with the passport module
+*/
+
 module.exports = function () {
   var login = function (req, res) {
     res.render('views/login.html', {

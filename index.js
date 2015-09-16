@@ -1,7 +1,9 @@
 /**
-* File that initialises the application by starting a new server instance and binding to a port. 
-* This should be run with the npm start command
-**/
+# R-Kit
+###Welcome to *R-Kit* server, the new way of conducting research studies.
+
+Use this docuementation as a simple way of learning about the r-kit server code and how to modify or extend its use for your specific use-case.
+*/
 
 var app = require('./app')
 

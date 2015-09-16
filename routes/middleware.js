@@ -3,6 +3,9 @@ var fs = require('fs')
 var async = require('async')
 var common = require('../common')
 
+/*
+##Generate a random UUID for a response
+*/
 function randomUUID () {
   var s = []
   var itoh = '0123456789ABCDEF'
@@ -27,6 +30,10 @@ function randomUUID () {
   return s.join('')
 }
 
+/*
+##Save uploaded files to S3
+Loop through the upload adding each file to S3
+*/
 function saveUploadedFiles (req, res, next) {
   function processQueue(passed, callback){
     common.saveToS3(passed.file.path, passed.fileName, callback)
@@ -57,6 +64,10 @@ function saveUploadedFiles (req, res, next) {
   }
 }
 
+/*
+##Check authenticated
+ensure a user is authenticated to perform a task
+*/
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
       return next()
@@ -65,6 +76,10 @@ function ensureAuthenticated (req, res, next) {
   }
 }
 
+/*
+##Check nonce
+Nonces are one time keys. Don't allow second time uplaoding
+*/
 var check_nonce = function (req, res, next) {
   // Ensure we have a new view - check NONCE from App
   if (req.body.nonce) {

@@ -1,4 +1,9 @@
-//Create a new Amazon S3 client object to re-use inside the application. This module is not a singleton to avoid issues with multiple uploads at once.
+/*
+#S3-client
+Create a new Amazon S3 client object to re-use inside the application. 
+
+This module is not a singleton to avoid issues with multiple uploads at once.
+*/
 module.exports = (function (app) {
   var s3 = require('s3')
 
