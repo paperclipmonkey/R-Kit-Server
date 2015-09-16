@@ -1,12 +1,10 @@
 REPORTER = dot
 
 test:
-	@NODE_ENV=test istanbul cover --handle-sigint ./node_modules/.bin/_mocha -- \
-		--reporter $(REPORTER) \
+	@NODE_ENV=test heroku local:run istanbul cover --handle-sigint ./node_modules/.bin/_mocha -- \
 
 test-w:
-	@NODE_ENV=test istanbul cover ./node_modules/.bin/_mocha -- \
-		--reporter $(REPORTER) \
+	@NODE_ENV=test heroku local:run istanbul cover ./node_modules/.bin/_mocha -- \
 		--growl \
 		--watch
 
