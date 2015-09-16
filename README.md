@@ -7,6 +7,8 @@ Allows users to upload completed research studies
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 
+[![Code Climate](https://codeclimate.com/repos/55effcda695680426d000216/badges/194e573fe723d9c50a96/gpa.svg)](https://codeclimate.com/repos/55effcda695680426d000216/feed)
+
 This sample server implementation is written in node.js. Ensure you have node.js >0.10 as well as NPM installed.
 
 Data is stored in to a [MongoDB](https://www.mongodb.com/) instance, with an [amazon S3](https://aws.amazon.com/s3/) instance storing the uploaded files.
