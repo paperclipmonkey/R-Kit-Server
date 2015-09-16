@@ -4,7 +4,6 @@ Functions and endpoints used on the dashboard page
 */
 
 var mongoose = require('mongoose')
-var common = require('../common')
 
 require('date-utils')
 
@@ -119,7 +118,7 @@ module.exports = function (app) {
     var weekAgo = new Date()
     weekAgo.setDate(weekAgo.getDate() - 7)
 
-    mongoose.model('response').count({'ts': {'$gte': weekAgo}}, cback)    
+    mongoose.model('response').count({'ts': {'$gte': weekAgo}}, cback)
   }
 
   return {

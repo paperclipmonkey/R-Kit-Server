@@ -18,7 +18,7 @@ The fields created are:
   * **password** - SHA1 encrypted password
 
   * **salt** - Salt appended to the PW before encrypting
-  
+
   * **fullname** - The full name of the user
 
   * **phoneno** - The phone number of the user
@@ -39,10 +39,10 @@ module.exports = (function (app) {
     lastLogin: {type: Date, required: true, default: Date.now}
   })
 
-/*
-## Before save
-Check if the password has changed.
-*/
+  /*
+  ## Before save
+  Check if the password has changed.
+  */
   UserSchema.pre('save', function (next) {
     var user = this
     if (!user.salt) {

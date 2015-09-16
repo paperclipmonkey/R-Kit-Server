@@ -3,12 +3,9 @@
 */
 
 var mongoose = require('mongoose')
-var fs = require('fs')
 var async = require('async')
-var common = require('../common')
 
 module.exports = function (app) {
-
   /*
   ##List users
   */
@@ -77,7 +74,7 @@ module.exports = function (app) {
         if (err) {
           return res.status(404).send(err)
         }
-    
+
         res.render('views/admin-user.html', {
           user: req.user,
           useredit: results.user,
@@ -101,7 +98,7 @@ module.exports = function (app) {
   return {
     users_list: users_list,
     users_edit: users_edit,
-    users_delete: users_delete,
+    users_delete: users_delete
   }
 
 }

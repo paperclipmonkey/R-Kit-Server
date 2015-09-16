@@ -55,5 +55,13 @@
   "scripts": {
     "test": "make test",
     "start": "heroku local:run node ./"
-  }
+  },
+  "standard": {
+  "ignore": [
+    "/coverage/",
+    "/doc/",
+    "/test/",
+    "/public/"
+  ]
+}
 }

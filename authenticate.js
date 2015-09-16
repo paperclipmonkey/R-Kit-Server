@@ -22,9 +22,9 @@ module.exports = (function () {
   // Also possible to authenticate remotely using Google or Github for example
   passport.use(new LocalStrategy(
     function (email, password, done) {
-      var shasum = crypto.createHash('sha1') 
+      var shasum = crypto.createHash('sha1')
       // Encryption of user's PW is done using SHA1 algorithm
-      
+
       // Find user object to grab salt
       userModel.findOne({email: email}, function (err, user1) {
         if (err) {

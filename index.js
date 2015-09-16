@@ -16,6 +16,6 @@ All of the documentation is written in Markup and converted to HTML using the NP
 
 var app = require('./app')
 
-var server = app.listen(process.env.PORT, function() {
-    console.log('Listening on port %d', server.address().port);
-});
+var server = app.listen(process.env.PORT, function () {
+  console.log('Listening on port %d', server.address().port)
+})

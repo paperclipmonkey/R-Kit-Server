@@ -1,8 +1,6 @@
 var mongoose = require('mongoose')
-var fs = require('fs')
 var archiver = require('archiver')
 var json2csv = require('json2csv')
-var request = require('request')
 var s3Client = require('../s3-client')
 
 module.exports = function (app) {
@@ -13,26 +11,25 @@ module.exports = function (app) {
   */
   function downloadFromS3 (filename) {
     var s3Params = {
-        Bucket: process.env.S3_BUCKET,
-        Key: filename
-        //Key: 'example.jpg'
-        // other options supported by putObject, except Body and ContentLength.
-        // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
+      Bucket: process.env.S3_BUCKET,
+      Key: filename
+    // Key: 'example.jpg'
+    // other options supported by putObject, except Body and ContentLength.
+    // See: http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#putObject-property
     }
     var downloader = s3Client.downloadStream(s3Params)
     downloader.on('error', function (err) {
       console.error('unable to download from S3:', err.stack)
     })
     downloader.on('progress', function () {
-      //console.log("progress", downloader.progressMd5Amount,
-      //downloader.progressAmount, downloader.progressTotal)
+      // console.log("progress", downloader.progressMd5Amount,
+      // downloader.progressAmount, downloader.progressTotal)
     })
     downloader.on('end', function () {
-      //console.log("done downloading from S3")
+      // console.log("done downloading from S3")
     })
-    return downloader;
+    return downloader
   }
-
 
   /*
   ##Responses downloaded as a CSV file
@@ -127,12 +124,12 @@ module.exports = function (app) {
         console.log(err)
         return next(err)
       }
-      //is file ID in there?
-      if(doc.files[req.params.file]){
+      // is file ID in there?
+      if (doc.files[req.params.file]) {
         res.setHeader('Content-Disposition', 'attachment; filename=' + doc.files[req.params.file])
         downloadFromS3('uploads/' + doc.files[req.params.file]).pipe(res)
       } else {
-        return next(new Error('file doesn\'t exist'))
+        return next(new Error("file doesn't exist"))
       }
     })
   }
@@ -141,6 +138,6 @@ module.exports = function (app) {
     response_download_file: response_download_file,
     download_docs: download_docs,
     responses_download_csv: responses_download_csv,
-    responses_download_files: responses_download_files,
+    responses_download_files: responses_download_files
   }
 }

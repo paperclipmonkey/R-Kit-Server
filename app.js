@@ -59,7 +59,7 @@ module.exports = (function () {
     showStack: true
   }))
 
-  //Partials are reusable page elements
+  // Partials are reusable page elements
   hbs.registerPartial('head', fs.readFileSync(__dirname + '/views/partials/head.html', 'utf8'))
   hbs.registerPartial('menuside', fs.readFileSync(__dirname + '/views/partials/menuside.html', 'utf8'))
   hbs.registerPartial('script', fs.readFileSync(__dirname + '/views/partials/script.html', 'utf8'))
@@ -116,7 +116,7 @@ module.exports = (function () {
 
   // Error handling
   app.use(function (err, req, res, next) {
-    //console.log(err)
+    // console.log(err)
     if (!err) return next()
     if (!res.headersSent) {
       res.sendStatus(400)

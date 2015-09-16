@@ -1,6 +1,6 @@
 /*
 #S3-client
-Create a new Amazon S3 client object to re-use inside the application. 
+Create a new Amazon S3 client object to re-use inside the application.
 
 This module is not a singleton to avoid issues with multiple uploads at once.
 */

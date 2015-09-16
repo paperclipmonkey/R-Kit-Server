@@ -3,8 +3,6 @@
 */
 
 var mongoose = require('mongoose')
-var escape = require('escape-html')
-var common = require('../common')
 var async = require('async')
 
 module.exports = function (app) {
@@ -25,7 +23,7 @@ module.exports = function (app) {
         return res.end()
       }
 
-      //common.emailAdmins(instance)
+      // common.emailAdmins(instance)
 
       res.json(instance.toClient()) // JSON
       res.end()
@@ -64,7 +62,6 @@ module.exports = function (app) {
 
     mongoose.model('response').find({}, cback)
   }
-
 
   /*
   ##Delete

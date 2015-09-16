@@ -1,4 +1,4 @@
-/* 
+/*
 #Response model
 Model file for a response from a research participant
 
@@ -7,7 +7,7 @@ Saves their response as a JSON object in the MongoDB database
 
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
-require('datejs')//Global changes to the Date object. Messy...
+require('datejs') // Global changes to the Date object. Messy...
 
 /*
 ## The model
@@ -20,7 +20,7 @@ The fields created are:
   * **Data** - JS(ON) object encoding the data sent
 
   * **Files** - array of file names as they've been uploaded to S3 or other
-  
+
   * **Ts** - A timestamp of when it was received
 */
 module.exports = (function (app) {
@@ -31,7 +31,7 @@ module.exports = (function (app) {
       type: [],
       required: false
     },
-    ts: {type: Date, 'default': Date.now},
+    ts: {type: Date, 'default': Date.now}
   })
 
   /*

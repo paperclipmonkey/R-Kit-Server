@@ -1,5 +1,4 @@
 var mongoose = require('mongoose')
-var fs = require('fs')
 var async = require('async')
 var common = require('../common')
 
@@ -35,16 +34,16 @@ function randomUUID () {
 Loop through the upload adding each file to S3
 */
 function saveUploadedFiles (req, res, next) {
-  function processQueue(passed, callback){
+  function processQueue (passed, callback) {
     common.saveToS3(passed.file.path, passed.fileName, callback)
   }
   if (req.files) {
     var pushed = []
     req.uploadedFiles = []
     var folderName = randomUUID()
-    for(x in req.files){
+    for (var x in req.files) {
       var file = req.files[x]
-      var fileName = folderName + '/' + file.originalFilename//Retain original
+      var fileName = folderName + '/' + file.originalFilename // Retain original
       req.uploadedFiles.push(fileName)
       pushed.push({
         file: file,
@@ -52,8 +51,8 @@ function saveUploadedFiles (req, res, next) {
       })
     }
     async.map(pushed, processQueue.bind(processQueue),
-      function(err, result){
-        if(err){
+      function (err, result) {
+        if (err) {
           return next(err)
         }
         next()
@@ -70,7 +69,7 @@ ensure a user is authenticated to perform a task
 */
 function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
-      return next()
+    return next()
   } else {
     return res.redirect('/admin/login')
   }
