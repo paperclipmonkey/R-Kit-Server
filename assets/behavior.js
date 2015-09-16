@@ -21,9 +21,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "index.js",
         "targetPath": "index",
         "pageTitle": "index",
-        "title": "index"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "R-Kit",
+            "slug": "r-kit",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "R-Kit"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": []
     }, {
       "type": "file",
       "data": {
@@ -105,9 +116,79 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "models/Response.js",
             "targetPath": "models/Response",
             "pageTitle": "models/Response",
-            "title": "Response"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Response model",
+                "slug": "response-model",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "The model",
+                    "slug": "the-model"
+                  },
+                  "depth": 2,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 3,
+                        "title": "To client",
+                        "slug": "to-client"
+                      },
+                      "depth": 3
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 3,
+                        "title": "To Csv",
+                        "slug": "to-csv"
+                      },
+                      "depth": 3
+                    }
+                  ]
+                }
+              ]
+            },
+            "title": "Response model"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "The model",
+                "slug": "the-model"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "To client",
+                    "slug": "to-client"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "To Csv",
+                    "slug": "to-csv"
+                  },
+                  "depth": 3
+                }
+              ]
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -124,9 +205,57 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "models/User.js",
             "targetPath": "models/User",
             "pageTitle": "models/User",
-            "title": "User"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "User model",
+                "slug": "user-model",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "The model",
+                    "slug": "the-model"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Before save",
+                    "slug": "before-save"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "User model"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "The model",
+                "slug": "the-model"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Before save",
+                "slug": "before-save"
+              },
+              "depth": 2
+            }
+          ]
         }
       ]
     }, {
@@ -153,9 +282,20 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "routes/authenticate.js",
             "targetPath": "routes/authenticate",
             "pageTitle": "routes/authenticate",
-            "title": "authenticate"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Authenticate",
+                "slug": "authenticate",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Authenticate"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": []
         }, {
           "type": "file",
           "data": {
@@ -172,9 +312,89 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "routes/dashboard.js",
             "targetPath": "routes/dashboard",
             "pageTitle": "routes/dashboard",
-            "title": "dashboard"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Dashboard",
+                "slug": "dashboard",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Renders the dashboard page",
+                    "slug": "renders-the-dashboard-page"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Responses by month",
+                    "slug": "responses-by-month"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Responses total count",
+                    "slug": "responses-total-count"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Responses in the last week",
+                    "slug": "responses-in-the-last-week"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Dashboard"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Renders the dashboard page",
+                "slug": "renders-the-dashboard-page"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Responses by month",
+                "slug": "responses-by-month"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Responses total count",
+                "slug": "responses-total-count"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Responses in the last week",
+                "slug": "responses-in-the-last-week"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -193,7 +413,58 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "pageTitle": "routes/download",
             "title": "download"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Downloads a file from the S3 Data service",
+                "slug": "downloads-a-file-from-the-s3-data-service"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Responses downloaded as a CSV file",
+                "slug": "responses-downloaded-as-a-csv-file"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Download all documents for a given set of IDs",
+                "slug": "download-all-documents-for-a-given-set-of-ids"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Add files to a zip file",
+                "slug": "add-files-to-a-zip-file"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Download responses as a zip file",
+                "slug": "download-responses-as-a-zip-file"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Download single file from S3",
+                "slug": "download-single-file-from-s3"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -212,7 +483,42 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "pageTitle": "routes/middleware",
             "title": "middleware"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Generate a random UUID for a response",
+                "slug": "generate-a-random-uuid-for-a-response"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Save uploaded files to S3",
+                "slug": "save-uploaded-files-to-s3"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Check authenticated",
+                "slug": "check-authenticated"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Check nonce",
+                "slug": "check-nonce"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -229,9 +535,105 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "routes/responses.js",
             "targetPath": "routes/responses",
             "pageTitle": "routes/responses",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "responses",
+                "slug": "responses",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "New response",
+                    "slug": "new-response"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "List",
+                    "slug": "list"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "List (Data)",
+                    "slug": "list-data"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Delete",
+                    "slug": "delete"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Update",
+                    "slug": "update"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "responses"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "New response",
+                "slug": "new-response"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "List",
+                "slug": "list"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "List (Data)",
+                "slug": "list-data"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Delete",
+                "slug": "delete"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Update",
+                "slug": "update"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -248,9 +650,73 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "routes/users.js",
             "targetPath": "routes/users",
             "pageTitle": "routes/users",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "users",
+                "slug": "users",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "List users",
+                    "slug": "list-users"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Edit a user",
+                    "slug": "edit-a-user"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Delete a user",
+                    "slug": "delete-a-user"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "users"
           },
-          "depth": 2
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "List users",
+                "slug": "list-users"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Edit a user",
+                "slug": "edit-a-user"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Delete a user",
+                "slug": "delete-a-user"
+              },
+              "depth": 2
+            }
+          ]
         }
       ]
     }, {
@@ -269,9 +735,739 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "s3-client.js",
         "targetPath": "s3-client",
         "pageTitle": "s3-client",
-        "title": "s3-client"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "S3-client",
+            "slug": "s3-client",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "S3-client"
       },
-      "depth": 1
+      "depth": 1,
+      "outline": []
+    }, {
+      "type": "folder",
+      "data": {
+        "path": "test",
+        "title": "test"
+      },
+      "depth": 1,
+      "children": [
+        {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/michaelwaterworth/Dropbox/Swansea/diss/server/test/response.js",
+            "projectPath": "test/response.js",
+            "targetPath": "test/response",
+            "pageTitle": "test/response",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "response.js",
+                "slug": "responsejs",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "response.js"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".js"],
+              "pygmentsLexer": "javascript",
+              "multiLineComment": ["/*", "*", "*/"],
+              "singleLineComment": ["//"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "JavaScript"
+            },
+            "sourcePath": "/Users/michaelwaterworth/Dropbox/Swansea/diss/server/test/web.js",
+            "projectPath": "test/web.js",
+            "targetPath": "test/web",
+            "pageTitle": "test/web",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "web",
+                "slug": "web",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "front-end tests",
+                    "slug": "front-end-tests"
+                  },
+                  "depth": 2,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check default URL",
+                        "slug": "check-default-url"
+                      },
+                      "depth": 4
+                    }
+                  ]
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "API tests",
+                    "slug": "api-tests"
+                  },
+                  "depth": 2,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check upload without file",
+                        "slug": "check-upload-without-file"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check upload with file",
+                        "slug": "check-upload-with-file"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check upload with nonce",
+                        "slug": "check-upload-with-nonce"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check upload with nonce returns same",
+                        "slug": "check-upload-with-nonce-returns-same"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Cleanup",
+                        "slug": "cleanup"
+                      },
+                      "depth": 4
+                    }
+                  ]
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "back-end tests",
+                    "slug": "back-end-tests"
+                  },
+                  "depth": 2,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Before",
+                        "slug": "before"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "When not logged in check",
+                        "slug": "when-not-logged-in-check"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check login page displays",
+                        "slug": "check-login-page-displays"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check login with bad credentials",
+                        "slug": "check-login-with-bad-credentials"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check login",
+                        "slug": "check-login"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 3,
+                        "title": "Dashboard",
+                        "slug": "dashboard"
+                      },
+                      "depth": 3,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check dashboard shows",
+                            "slug": "check-dashboard-shows"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check dashboard week data",
+                            "slug": "check-dashboard-week-data"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check dashboard months data",
+                            "slug": "check-dashboard-months-data"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check dashboard total data",
+                            "slug": "check-dashboard-total-data"
+                          },
+                          "depth": 4
+                        }
+                      ]
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 3,
+                        "title": "Users",
+                        "slug": "users"
+                      },
+                      "depth": 3,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check showing users",
+                            "slug": "check-showing-users"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check creating new user form",
+                            "slug": "check-creating-new-user-form"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check creating new user",
+                            "slug": "check-creating-new-user"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check show user",
+                            "slug": "check-show-user"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check edit user",
+                            "slug": "check-edit-user"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check delete user",
+                            "slug": "check-delete-user"
+                          },
+                          "depth": 4
+                        }
+                      ]
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 3,
+                        "title": "Responses",
+                        "slug": "responses"
+                      },
+                      "depth": 3,
+                      "children": [
+                        {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses page render",
+                            "slug": "check-responses-page-render"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses datatables data",
+                            "slug": "check-responses-datatables-data"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check response page render",
+                            "slug": "check-response-page-render"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses edit render",
+                            "slug": "check-responses-edit-render"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses download specific file",
+                            "slug": "check-responses-download-specific-file"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses download file array",
+                            "slug": "check-responses-download-file-array"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses download csv",
+                            "slug": "check-responses-download-csv"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check responses delete",
+                            "slug": "check-responses-delete"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check logout",
+                            "slug": "check-logout"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "Check session trashed",
+                            "slug": "check-session-trashed"
+                          },
+                          "depth": 4
+                        }, {
+                          "type": "heading",
+                          "data": {
+                            "level": 4,
+                            "title": "After cleanup",
+                            "slug": "after-cleanup"
+                          },
+                          "depth": 4
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            "title": "web"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "front-end tests",
+                "slug": "front-end-tests"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check default URL",
+                    "slug": "check-default-url"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "API tests",
+                "slug": "api-tests"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check upload without file",
+                    "slug": "check-upload-without-file"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check upload with file",
+                    "slug": "check-upload-with-file"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check upload with nonce",
+                    "slug": "check-upload-with-nonce"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check upload with nonce returns same",
+                    "slug": "check-upload-with-nonce-returns-same"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Cleanup",
+                    "slug": "cleanup"
+                  },
+                  "depth": 4
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "back-end tests",
+                "slug": "back-end-tests"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Before",
+                    "slug": "before"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "When not logged in check",
+                    "slug": "when-not-logged-in-check"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check login page displays",
+                    "slug": "check-login-page-displays"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check login with bad credentials",
+                    "slug": "check-login-with-bad-credentials"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Check login",
+                    "slug": "check-login"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Dashboard",
+                    "slug": "dashboard"
+                  },
+                  "depth": 3,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check dashboard shows",
+                        "slug": "check-dashboard-shows"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check dashboard week data",
+                        "slug": "check-dashboard-week-data"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check dashboard months data",
+                        "slug": "check-dashboard-months-data"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check dashboard total data",
+                        "slug": "check-dashboard-total-data"
+                      },
+                      "depth": 4
+                    }
+                  ]
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Users",
+                    "slug": "users"
+                  },
+                  "depth": 3,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check showing users",
+                        "slug": "check-showing-users"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check creating new user form",
+                        "slug": "check-creating-new-user-form"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check creating new user",
+                        "slug": "check-creating-new-user"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check show user",
+                        "slug": "check-show-user"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check edit user",
+                        "slug": "check-edit-user"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check delete user",
+                        "slug": "check-delete-user"
+                      },
+                      "depth": 4
+                    }
+                  ]
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Responses",
+                    "slug": "responses"
+                  },
+                  "depth": 3,
+                  "children": [
+                    {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses page render",
+                        "slug": "check-responses-page-render"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses datatables data",
+                        "slug": "check-responses-datatables-data"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check response page render",
+                        "slug": "check-response-page-render"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses edit render",
+                        "slug": "check-responses-edit-render"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses download specific file",
+                        "slug": "check-responses-download-specific-file"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses download file array",
+                        "slug": "check-responses-download-file-array"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses download csv",
+                        "slug": "check-responses-download-csv"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check responses delete",
+                        "slug": "check-responses-delete"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check logout",
+                        "slug": "check-logout"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "Check session trashed",
+                        "slug": "check-session-trashed"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
+                        "title": "After cleanup",
+                        "slug": "after-cleanup"
+                      },
+                      "depth": 4
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }, {
       "type": "folder",
       "data": {

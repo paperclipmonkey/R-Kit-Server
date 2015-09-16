@@ -1,17 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><title>routes/dashboard</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="routes/dashboard"><meta name="groc-project-path" content="routes/dashboard.js"><meta name="groc-github-url" content="https://github.com/paperclipmonkey/R-Kit-Server"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/paperclipmonkey/R-Kit-Server/blob/master/routes/dashboard.js">routes/dashboard.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>)
+<!DOCTYPE html><html lang="en"><head><title>routes/dashboard</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="routes/dashboard"><meta name="groc-project-path" content="routes/dashboard.js"><meta name="groc-github-url" content="https://github.com/paperclipmonkey/R-Kit-Server"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/paperclipmonkey/R-Kit-Server/blob/master/routes/dashboard.js">routes/dashboard.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="dashboard">Dashboard</h1>
+<p>Functions and endpoints used on the dashboard page</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>)
 <span class="hljs-keyword">var</span> common = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../common'</span>)
 
 <span class="hljs-built_in">require</span>(<span class="hljs-string">'date-utils'</span>)
 
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{
-  <span class="hljs-keyword">var</span> dashboard = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">app</span>) </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="renders-the-dashboard-page">Renders the dashboard page</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> dashboard = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res</span>) </span>{
     res.render(<span class="hljs-string">'views/admin-dashboard.html'</span>, {
       user: req.user,
       pageDashboard: <span class="hljs-literal">true</span>
     })
-  }
-
-  <span class="hljs-keyword">var</span> dashboard_responses_by_month = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+  }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="responses-by-month">Responses by month</h2>
+<p>Responds in JSON with number per month.</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> dashboard_responses_by_month = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
     <span class="hljs-keyword">var</span> cback = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
       <span class="hljs-keyword">if</span> (err) {
         <span class="hljs-keyword">return</span> next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Views by Month Error'</span>, err))
@@ -30,7 +29,8 @@
         }
       }
 
-      <span class="hljs-keyword">var</span> monthsAgo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add in the additional months and data</p></div></div><div class="code"><div class="wrapper">      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">12</span>; i++) {
+      <span class="hljs-keyword">var</span> monthsAgo = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>()
+      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">12</span>; i++) { <span class="hljs-comment">// Add in the additional months and data</span>
         <span class="hljs-keyword">var</span> name = monthsAgo.getMonth() + <span class="hljs-number">1</span> + <span class="hljs-string">''</span>
 
         <span class="hljs-keyword">if</span> (!altFormat[name]) {
@@ -72,9 +72,8 @@
     }
 
     doQuery(filterQ)
-  }
-
-  <span class="hljs-keyword">var</span> dashboard_responses_total = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+  }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="responses-total-count">Responses total count</h2>
+<p>Responds with an integer</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> dashboard_responses_total = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
     <span class="hljs-keyword">var</span> cback = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
       <span class="hljs-keyword">if</span> (err) {
         <span class="hljs-keyword">return</span> next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Dashboard Views Total Error'</span>, err))
@@ -82,9 +81,8 @@
       res.json({<span class="hljs-string">'result'</span>: results})
     }
     mongoose.model(<span class="hljs-string">'response'</span>).count({}, cback)
-  }
-
-  <span class="hljs-keyword">var</span> dashboard_responses_week = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
+  }</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="responses-in-the-last-week">Responses in the last week</h2>
+<p>Responds with an integer</p></div></div><div class="code"><div class="wrapper">  <span class="hljs-keyword">var</span> dashboard_responses_week = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) </span>{
     <span class="hljs-keyword">var</span> cback = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, results</span>) </span>{
       <span class="hljs-keyword">if</span> (err) {
         <span class="hljs-keyword">return</span> next(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Dashboard Views Week Error'</span>, err))

@@ -1,0 +1,281 @@
+<!DOCTYPE html><html lang="en"><head><title>test/web</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="test/web"><meta name="groc-project-path" content="test/web.js"><meta name="groc-github-url" content="https://github.com/paperclipmonkey/R-Kit-Server"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/paperclipmonkey/R-Kit-Server/blob/master/test/web.js">test/web.js</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="web">web</h1>
+<p>Test all of the web endpoints</p></div></div><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> app = <span class="hljs-built_in">require</span>(<span class="hljs-string">'../app'</span>)
+<span class="hljs-keyword">var</span>	request = <span class="hljs-built_in">require</span>(<span class="hljs-string">'supertest'</span>)
+<span class="hljs-keyword">var</span> <span class="hljs-keyword">async</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async'</span>)
+<span class="hljs-keyword">var</span>	server</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="front-end-tests">front-end tests</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">describe(<span class="hljs-string">'Front-end'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+  <span class="hljs-keyword">var</span> rAgent;
+  before(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	server = app.listen(process.env.PORT, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	  rAgent = request.agent(app);
+	  done();
+	});
+  });</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-default-url">Check default URL</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">  it(<span class="hljs-string">'GET / should return 200'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+		.get(<span class="hljs-string">'/'</span>)
+		.expect(<span class="hljs-number">200</span>,done);
+  });
+
+  after(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+	server.close();
+  });
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="api-tests">API tests</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">describe(<span class="hljs-string">'App API'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	<span class="hljs-keyword">var</span> rAgentba
+	<span class="hljs-keyword">var</span> nonce
+	<span class="hljs-keyword">var</span> responseId
+	before(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		server = app.listen(process.env.PORT, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+			rAgent = request.agent(app)
+			<span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)
+			<span class="hljs-keyword">var</span> uuid = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-uuid'</span>)
+			done()
+		});
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-upload-without-file">Check upload without file</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /response without file return 200'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">10000</span>)
+		<span class="hljs-comment">//Load image from file</span>
+		rAgent
+			.post(<span class="hljs-string">'/response'</span>)
+			.send({
+			nonce: <span class="hljs-string">'4'</span>,
+			data: {<span class="hljs-string">'one'</span>:<span class="hljs-string">'two'</span>}
+			})
+		.expect(<span class="hljs-number">200</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-upload-with-file">Check upload with file</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /response with file return 200'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">10000</span>)
+		<span class="hljs-comment">//Load image from file</span>
+		rAgent
+			.post(<span class="hljs-string">'/response'</span>)
+		    .attach(<span class="hljs-string">'image1'</span>, __dirname + <span class="hljs-string">'/data/example.jpg'</span>, <span class="hljs-string">'photo1.jpg'</span>)
+		    .attach(<span class="hljs-string">'image2'</span>, __dirname + <span class="hljs-string">'/data/example.jpg'</span>, <span class="hljs-string">'photo2.jpg'</span>)
+			.send({
+			nonce: <span class="hljs-string">'4'</span>,
+			data: {<span class="hljs-string">'one'</span>:<span class="hljs-string">'two'</span>}
+			})
+		.expect(<span class="hljs-number">200</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-upload-with-nonce">Check upload with nonce</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /response with nonce should return 200'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">10000</span>)
+		<span class="hljs-comment">//Load image from file</span>
+		rAgent
+			.post(<span class="hljs-string">'/response'</span>)
+			.send({
+				age: <span class="hljs-string">'0-18'</span>,
+				knowarea: <span class="hljs-string">'Very well'</span>,
+				heading: <span class="hljs-string">'121.3'</span>,
+				nonce: nonce
+			})
+			.expect(<span class="hljs-number">200</span>).end(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>)</span>{
+				responseId = res.body.id;
+				done();
+			});
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-upload-with-nonce-returns-same">Check upload with nonce returns same</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /response with nonce should return same ID'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-comment">//Load image from file</span>
+		rAgent
+			.post(<span class="hljs-string">'/response'</span>)
+			.send({
+				data: <span class="hljs-string">'0-18'</span>,
+				files: <span class="hljs-string">'121.3'</span>,
+				nonce: nonce,
+			})
+			.expect(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>)</span>{
+				<span class="hljs-keyword">return</span> res.body.id !== responseId;<span class="hljs-comment">//Works in reverse. True means error, false means pass</span>
+			}).end(done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="cleanup">Cleanup</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	after(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+		server.close();
+	});
+
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="back-end-tests">back-end tests</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">describe(<span class="hljs-string">'Back-end'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+	<span class="hljs-keyword">var</span> rAgent;
+	<span class="hljs-keyword">var</span> adminEmail = <span class="hljs-string">'example@test.test'</span>
+	<span class="hljs-keyword">var</span> adminPassword = <span class="hljs-string">'something'</span>
+	<span class="hljs-keyword">var</span> responseId
+	<span class="hljs-keyword">var</span> responseIdWithFiles</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="before">Before</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	before(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">30000</span>)
+		server = app.listen(process.env.PORT, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+			rAgent = request.agent(app);
+			<span class="hljs-comment">//Remove example user if found</span>
+			<span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+			<span class="hljs-keyword">var</span> User = mongoose.model(<span class="hljs-string">'user'</span>);
+
+			<span class="hljs-keyword">async</span>.parallel([
+				<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cback</span>)</span>{
+					User.remove({<span class="hljs-string">'email'</span>: adminEmail}, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>)</span>{
+						<span class="hljs-keyword">var</span> user = <span class="hljs-keyword">new</span> User({
+						    email: adminEmail,
+						    password: <span class="hljs-string">'something'</span>,
+						    salt: adminEmail,
+						    fullname: <span class="hljs-string">'Test user'</span>,
+						    phoneno: <span class="hljs-string">'594930305838203'</span>
+						})
+						user.save(cback)
+					})
+				},
+				<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cback</span>)</span>{
+					rAgent
+						.post(<span class="hljs-string">'/response'</span>)
+					    .attach(<span class="hljs-string">'image1'</span>, __dirname + <span class="hljs-string">'/data/example.jpg'</span>, <span class="hljs-string">'photo1.jpg'</span>)
+					    .attach(<span class="hljs-string">'image2'</span>, __dirname + <span class="hljs-string">'/data/example.jpg'</span>, <span class="hljs-string">'photo2.jpg'</span>)
+						.send({
+							data: {<span class="hljs-string">'one'</span>:<span class="hljs-string">'two'</span>}
+						})
+						.end(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err,res</span>)</span>{
+							<span class="hljs-keyword">var</span> resp = <span class="hljs-built_in">JSON</span>.parse(res.res.text)
+							resp.id;
+							responseIdWithFiles = resp.id
+							cback(err)
+						});
+				},
+				<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">cback</span>)</span>{
+					<span class="hljs-keyword">var</span> Response = mongoose.model(<span class="hljs-string">'response'</span>);
+					<span class="hljs-keyword">var</span> response = <span class="hljs-keyword">new</span> Response({
+							nonce: <span class="hljs-string">"11223344"</span>,
+							data: {<span class="hljs-string">'one'</span>:<span class="hljs-string">'one'</span>,<span class="hljs-string">'two'</span>:<span class="hljs-string">'two'</span>}
+					})
+					response.save(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e,d</span>)</span>{
+						<span class="hljs-keyword">if</span>(e) <span class="hljs-keyword">return</span> cback(e)
+						responseId = d.id;
+						cback()
+					})
+
+				}
+				], <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e, d</span>)</span>{
+					done(e)
+				})
+		});
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="when-not-logged-in-check">When not logged in check</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin should redirect to login'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/'</span>)
+	  .expect(<span class="hljs-number">302</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-login-page-displays">Check login page displays</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/login should give 200'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/login'</span>)
+	  .expect(<span class="hljs-number">200</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-login-with-bad-credentials">Check login with bad credentials</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /admin/login should not login'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .post(<span class="hljs-string">'/admin/login'</span>)
+	  .send({username: adminEmail, password: adminPassword + <span class="hljs-number">1</span>})
+	  .expect(<span class="hljs-number">302</span>)
+	  .expect(<span class="hljs-string">'location'</span>, <span class="hljs-string">'/admin/login'</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-login">Check login</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /admin/login should login &amp; set cookie'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .post(<span class="hljs-string">'/admin/login'</span>)
+	  .send({username: adminEmail, password: adminPassword})
+	  .expect(<span class="hljs-number">302</span>)
+	  .expect(<span class="hljs-string">'location'</span>, <span class="hljs-string">"/admin/"</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr>
+<h3 id="dashboard">Dashboard</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-dashboard-shows">Check dashboard shows</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/ should show dashboard'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/'</span>)
+	  .expect(<span class="hljs-number">200</span>)
+	  .expect(<span class="hljs-regexp">/\bdashboard\b/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-dashboard-week-data">Check dashboard week data</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/dash/responses/week should show total responses this week'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/dash/responses/week'</span>)
+	  .expect(<span class="hljs-number">200</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-dashboard-months-data">Check dashboard months data</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/dash/responses/months should show total responses this month'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/dash/responses/months'</span>)
+	  .expect(<span class="hljs-number">200</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-dashboard-total-data">Check dashboard total data</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/dash/responses/total should show total responses'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/dash/responses/total'</span>)
+	  .expect(<span class="hljs-number">200</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr>
+<h3 id="users">Users</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-showing-users">Check showing users</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/users should show users'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/users/'</span>)
+	  .expect(<span class="hljs-regexp">/\bEmail\b/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-creating-new-user-form">Check creating new user form</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/users/new/ should show form'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/users/new/'</span>)
+	  .expect(<span class="hljs-number">200</span>)
+	  .expect(<span class="hljs-regexp">/\bEmail\b/</span>, done);
+	});
+
+	<span class="hljs-keyword">var</span> userAdr;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-creating-new-user">Check creating new user</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /admin/users/new/ should add new user'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .post(<span class="hljs-string">'/admin/users/new/'</span>)
+		  .send({
+			fullname: <span class="hljs-string">'test'</span>,
+			email: <span class="hljs-string">'test@test.com'</span>,
+			organisation: <span class="hljs-string">'Test'</span>,
+			phoneno: <span class="hljs-string">'01792'</span>,
+			password: <span class="hljs-string">'test'</span>
+		  })
+		  .expect(<span class="hljs-number">302</span>)
+		  .end(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err, res</span>)</span>{
+			userAdr = res.header.location;
+			done();
+		  });
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-show-user">Check show user</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/users/x should show user'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .get(userAdr)
+		  .expect(<span class="hljs-number">200</span>)
+		  .expect(<span class="hljs-regexp">/\btest\b/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-edit-user">Check edit user</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /admin/users/x should edit user'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .post(userAdr)
+		  .expect(<span class="hljs-number">200</span>)
+		  .expect(<span class="hljs-regexp">/\btest\b/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-delete-user">Check delete user</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'DELETE /admin/users/x should delete new user'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .get(userAdr + <span class="hljs-string">'/delete'</span>)
+		  .expect(<span class="hljs-number">302</span>)
+		  .expect(<span class="hljs-regexp">/^((?!test).)*$/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><hr>
+<h3 id="responses">Responses</h3></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-page-render">Check responses page render</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses should show responses'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .get(<span class="hljs-string">'/admin/responses/'</span>)
+		  .expect(<span class="hljs-number">200</span>)
+		  .expect(<span class="hljs-regexp">/\bR-kit\b/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-datatables-data">Check responses datatables data</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses-datatables should show responses in datatables format'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .get(<span class="hljs-string">'/admin/responses-datatables/'</span>)
+		  .expect(<span class="hljs-number">200</span>)
+		  .expect(<span class="hljs-regexp">/\aaData\b/</span>, done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-response-page-render">Check response page render</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses/x should show response in editable format'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-comment">//Find response ID.</span>
+		rAgent
+		  .get(<span class="hljs-string">'/admin/responses/'</span> + responseId)
+		  .expect(<span class="hljs-number">200</span>, done)
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-edit-render">Check responses edit render</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'POST /admin/responses/x should show edit response'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-comment">//Find response ID.</span>
+		rAgent
+		  .post(<span class="hljs-string">'/admin/responses/'</span> + responseId)
+		  .expect(<span class="hljs-number">200</span>, done)
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-download-specific-file">Check responses download specific file</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses/x/download/file/0 should return files'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">30000</span>)
+		rAgent
+			.get(<span class="hljs-string">'/admin/responses/'</span> + responseIdWithFiles + <span class="hljs-string">'/download/file/0'</span>)
+			<span class="hljs-comment">//.expect('');//Check it has a filename</span>
+			.expect(<span class="hljs-number">200</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-download-file-array">Check responses download file array</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses/download/files/[] should return files'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">30000</span>)
+		rAgent
+			.get(<span class="hljs-string">'/admin/responses/download/files/["'</span> + responseIdWithFiles + <span class="hljs-string">'"]'</span>)
+			<span class="hljs-comment">//.expect('');//Check it has a filename</span>
+			.expect(<span class="hljs-number">200</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-download-csv">Check responses download csv</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses/download/csv/[] should return csv spreadsheet'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-keyword">this</span>.timeout(<span class="hljs-number">30000</span>)
+		rAgent
+			.get(<span class="hljs-string">'/admin/responses/download/csv/["'</span> + responseIdWithFiles + <span class="hljs-string">'"]'</span>)
+			<span class="hljs-comment">//.expect('');//Check it has a filename</span>
+			.expect(<span class="hljs-number">200</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-responses-delete">Check responses delete</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin/responses/x/delete should delete response'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		<span class="hljs-comment">//Find response ID.</span>
+		rAgent
+		  .get(<span class="hljs-string">'/admin/responses/'</span> + responseId + <span class="hljs-string">'/delete'</span>)
+		  .expect(<span class="hljs-number">302</span>, done)
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-logout">Check logout</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin should redirect to login when logging out'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+		rAgent
+		  .get(<span class="hljs-string">'/admin/logout'</span>)
+		  .expect(<span class="hljs-number">302</span>,done);
+	});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="check-session-trashed">Check session trashed</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	it(<span class="hljs-string">'GET /admin should redirect to login after logging out'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">done</span>)</span>{
+	rAgent
+	  .get(<span class="hljs-string">'/admin/'</span>)
+	  .expect(<span class="hljs-number">302</span>,done);
+	});
+
+	<span class="hljs-keyword">var</span> viewAdr;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h4 id="after-cleanup">After cleanup</h4></div></div></div><div class="segment"><div class="code"><div class="wrapper">	after(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+		server.close();
+	});
+});</div></div></div></div></body></html>
