@@ -1,3 +1,8 @@
+/*
+#Authenticate
+###Provides authentication functions to the application
+*/
+
 module.exports = (function () {
   var passport = require('passport') // Authentication
   var mongoose = require('mongoose')
@@ -12,10 +17,15 @@ module.exports = (function () {
 
   var userModel = mongoose.model('user')
 
+  // Passport is the node module used to provide functionality for this
+  // Local strategy means authenticate locally
+  // Also possible to authenticate remotely using Google or Github for example
   passport.use(new LocalStrategy(
     function (email, password, done) {
-      var shasum = crypto.createHash('sha1')
-      // Need to find user object to grab salt
+      var shasum = crypto.createHash('sha1') 
+      // Encryption of user's PW is done using SHA1 algorithm
+      
+      // Find user object to grab salt
       userModel.findOne({email: email}, function (err, user1) {
         if (err) {
           return done() // done(err)
@@ -39,10 +49,12 @@ module.exports = (function () {
     }
   ))
 
+  // Serialise user id ready to save to session
   passport.serializeUser(function (user, done) {
     done(null, user['_id'])
   })
 
+  // Deserialise user based on just their user id
   passport.deserializeUser(function (id, done) {
     userModel.findOne({'_id': id}, function (err, user) {
       done(err, user)
