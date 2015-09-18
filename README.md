@@ -46,3 +46,6 @@ The server is built with the heroku platform in mind. It is deployable on any pl
 
 If you want to submit code upstream ensure any new code is covered by tests (>90% coverage) and that any code is formatted correctly following JS standard. Code can be automatically formatted by running:
 	`make standard`
+	
+##Documentation
+Further documentation can be found on the [Github pages](paperclipmonkey.github.io/R-Kit-Server/) website.
