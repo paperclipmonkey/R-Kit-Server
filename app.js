@@ -84,6 +84,7 @@ module.exports = (function () {
   app.get('/admin/responses/download/csv/:ids', middleware.ensureAuthenticated, routes.download.responses_download_csv)
   app.get('/admin/responses/download/files/:ids', middleware.ensureAuthenticated, routes.download.responses_download_files)
   app.get('/admin/responses/:id/download/file/:file', middleware.ensureAuthenticated, routes.download.response_download_file)
+  app.get('/admin/file/:folder/:file', middleware.ensureAuthenticated, routes.download.download_file)
 
   // Response admin pages
   app.get('/admin/responses', middleware.ensureAuthenticated, routes.responses.admin_list)

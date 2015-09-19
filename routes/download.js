@@ -134,7 +134,17 @@ module.exports = function (app) {
     })
   }
 
+  /*
+  ##Download single file from S3 with just the file url. Passthrough.
+  Responds with file
+  */
+  var download_file = function (req, res, next) {
+      res.setHeader('Content-Disposition', 'attachment; filename=' + req.params.file)
+      downloadFromS3('uploads/' + req.params.folder + '/' + req.params.file).pipe(res)
+  }
+
   return {
+    download_file: download_file,
     response_download_file: response_download_file,
     download_docs: download_docs,
     responses_download_csv: responses_download_csv,

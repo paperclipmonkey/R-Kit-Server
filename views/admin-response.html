@@ -61,7 +61,13 @@
 													<div class="control-group">
 														<label class="control-label" for="textarea">Files</label>
 														<div class="controls">
-															<textarea name="comments">{{#toJSON files}}{{/toJSON}}</textarea>
+															<ul class="list-group">
+																{{#files}}
+																<li class="list-group-item">
+																	<a href="/admin/file/{{this}}">{{this}}</a>
+																</li>
+																{{/files}}
+															</ul>
 															<p class="help-block">Files from the upload</p>
 														</div>
 													</div>
