@@ -188,7 +188,28 @@ $(document).ready(function() {
 					return day + '/' + month + '/' + d.getFullYear() + ' ' + hour + ':' + minute;
 				},
 				"aTargets": [ 1 ]
-			 }
+			},
+			{
+			// `data` refers to the data for the cell (defined by `mData`, which
+			// defaults to the column being worked with, in this case is the first
+			// Using `row[0]` is equivalent.
+			    "mRender": function ( data, type, row ) {
+					return "<pre><code>" + data + "</pre></code>"
+				},
+				"aTargets": [ 2 ]
+			},
+			{
+			    "mRender": function ( data, type, row ) {
+			    	var outString = ""
+			    	var i = 0
+			    	while(i < data.length){
+			    		outString += "<li>" + data[i] + "</li>"
+			    		i++
+			    	}
+					return outString
+				},
+				"aTargets": [ 3 ]
+			}
         ]
 	});
 	$('.datatable tbody tr').live('click', function () {

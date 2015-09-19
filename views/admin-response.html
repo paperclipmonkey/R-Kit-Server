@@ -1,6 +1,9 @@
 <html lang="en">
 	<head>
 		{{> head}}
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/styles/default.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+		<script>hljs.initHighlightingOnLoad();</script>
 	</head>
 	<body>
 		<div class="container-fluid">
@@ -54,7 +57,9 @@
 													<div class="control-group">
 														<label class="control-label" for="textarea">Data</label>
 														<div class="controls">
-															<textarea name="comments">{{#toJSON data}}{{/toJSON}}</textarea>
+															<pre><code>
+															{{#toJSON data}}{{/toJSON}}
+															</code></pre>
 															<p class="help-block">Data from the upload</p>
 														</div>
 													</div>

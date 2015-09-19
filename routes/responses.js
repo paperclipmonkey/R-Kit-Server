@@ -98,6 +98,9 @@ module.exports = function (app) {
         if (err) {
           return next(err)
         }
+        try{
+          results.response.data = JSON.parse(results.response.data);
+        } catch(e){}
         res.render('views/admin-response.html', {
           user: req.user,
           static_url: process.env.S3_URL,
