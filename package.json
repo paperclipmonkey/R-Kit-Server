@@ -54,7 +54,7 @@
   },
   "scripts": {
     "test": "make test",
-    "start": "heroku local:run node ./"
+    "start": "heroku local web"
   },
   "standard": {
   "ignore": [

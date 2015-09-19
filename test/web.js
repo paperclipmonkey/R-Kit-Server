@@ -80,9 +80,7 @@ describe('App API', function () {
     rAgent
       .post('/response')
       .send({
-        age: '0-18',
-        knowarea: 'Very well',
-        heading: '121.3',
+        data: {'one': 'two'}
         nonce: nonce
       })
       .expect(200).end(function (err, res) {
@@ -97,7 +95,7 @@ describe('App API', function () {
     rAgent
       .post('/response')
       .send({
-        data: '0-18',
+        data: '0, 0, 1, 2',
         files: '121.3',
         nonce: nonce,
       })
