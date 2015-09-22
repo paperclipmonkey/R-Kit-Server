@@ -80,7 +80,7 @@ describe('App API', function () {
     rAgent
       .post('/response')
       .send({
-        data: {'one': 'two'}
+        data: {'one': 'two'},
         nonce: nonce
       })
       .expect(200).end(function (err, res) {
