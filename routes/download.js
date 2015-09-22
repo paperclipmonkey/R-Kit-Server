@@ -139,8 +139,8 @@ module.exports = function (app) {
   Responds with file
   */
   var download_file = function (req, res, next) {
-      res.setHeader('Content-Disposition', 'attachment; filename=' + req.params.file)
-      downloadFromS3('uploads/' + req.params.folder + '/' + req.params.file).pipe(res)
+    res.setHeader('Content-Disposition', 'attachment; filename=' + req.params.file)
+    downloadFromS3('uploads/' + req.params.folder + '/' + req.params.file).pipe(res)
   }
 
   return {
